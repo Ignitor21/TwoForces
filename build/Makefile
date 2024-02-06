@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jorik/study/PARACL
+CMAKE_SOURCE_DIR = /home/jorik/study/TwoForces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jorik/study/PARACL/build
+CMAKE_BINARY_DIR = /home/jorik/study/TwoForces/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jorik/study/PARACL/build/CMakeFiles /home/jorik/study/PARACL/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jorik/study/TwoForces/build/CMakeFiles /home/jorik/study/TwoForces/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jorik/study/PARACL/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jorik/study/TwoForces/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,30 +128,6 @@ ParaCL: cmake_check_build_system
 ParaCL/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ParaCL.dir/build.make CMakeFiles/ParaCL.dir/build
 .PHONY : ParaCL/fast
-
-calc++.o: calc++.cxx.o
-.PHONY : calc++.o
-
-# target to build an object file
-calc++.cxx.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ParaCL.dir/build.make CMakeFiles/ParaCL.dir/calc++.cxx.o
-.PHONY : calc++.cxx.o
-
-calc++.i: calc++.cxx.i
-.PHONY : calc++.i
-
-# target to preprocess a source file
-calc++.cxx.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ParaCL.dir/build.make CMakeFiles/ParaCL.dir/calc++.cxx.i
-.PHONY : calc++.cxx.i
-
-calc++.s: calc++.cxx.s
-.PHONY : calc++.s
-
-# target to generate assembly for a file
-calc++.cxx.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ParaCL.dir/build.make CMakeFiles/ParaCL.dir/calc++.cxx.s
-.PHONY : calc++.cxx.s
 
 driver.o: driver.cxx.o
 .PHONY : driver.o
@@ -201,6 +177,30 @@ lexer.cxx.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ParaCL.dir/build.make CMakeFiles/ParaCL.dir/lexer.cxx.s
 .PHONY : lexer.cxx.s
 
+main.o: main.cxx.o
+.PHONY : main.o
+
+# target to build an object file
+main.cxx.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ParaCL.dir/build.make CMakeFiles/ParaCL.dir/main.cxx.o
+.PHONY : main.cxx.o
+
+main.i: main.cxx.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cxx.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ParaCL.dir/build.make CMakeFiles/ParaCL.dir/main.cxx.i
+.PHONY : main.cxx.i
+
+main.s: main.cxx.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cxx.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ParaCL.dir/build.make CMakeFiles/ParaCL.dir/main.cxx.s
+.PHONY : main.cxx.s
+
 parser.o: parser.cxx.o
 .PHONY : parser.o
 
@@ -234,15 +234,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ParaCL"
-	@echo "... calc++.o"
-	@echo "... calc++.i"
-	@echo "... calc++.s"
 	@echo "... driver.o"
 	@echo "... driver.i"
 	@echo "... driver.s"
 	@echo "... lexer.o"
 	@echo "... lexer.i"
 	@echo "... lexer.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... parser.o"
 	@echo "... parser.i"
 	@echo "... parser.s"

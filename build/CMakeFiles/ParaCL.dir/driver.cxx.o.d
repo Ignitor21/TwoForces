@@ -1,6 +1,6 @@
-CMakeFiles/ParaCL.dir/driver.cxx.o: /home/jorik/study/PARACL/driver.cxx \
- /usr/include/stdc-predef.h /home/jorik/study/PARACL/driver.hxx \
- /usr/include/c++/11/string \
+CMakeFiles/ParaCL.dir/driver.cxx.o: \
+ /home/jorik/study/TwoForces/driver.cxx /usr/include/stdc-predef.h \
+ /home/jorik/study/TwoForces/driver.hxx /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -147,7 +147,7 @@ CMakeFiles/ParaCL.dir/driver.cxx.o: /home/jorik/study/PARACL/driver.cxx \
  /usr/include/c++/11/bits/invoke.h \
  /usr/include/c++/11/bits/stl_multimap.h \
  /usr/include/c++/11/bits/erase_if.h \
- /home/jorik/study/PARACL/build/parser.hxx /usr/include/c++/11/cassert \
+ /home/jorik/study/TwoForces/build/parser.hxx /usr/include/c++/11/cassert \
  /usr/include/assert.h /usr/include/c++/11/iostream \
  /usr/include/c++/11/ostream /usr/include/c++/11/ios \
  /usr/include/c++/11/exception /usr/include/c++/11/bits/exception_ptr.h \
@@ -174,4 +174,4 @@ CMakeFiles/ParaCL.dir/driver.cxx.o: /home/jorik/study/PARACL/driver.cxx \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
- /home/jorik/study/PARACL/build/location.hh
+ /home/jorik/study/TwoForces/build/location.hh

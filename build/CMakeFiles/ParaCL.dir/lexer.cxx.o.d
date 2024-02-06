@@ -1,5 +1,5 @@
 CMakeFiles/ParaCL.dir/lexer.cxx.o: \
- /home/jorik/study/PARACL/build/lexer.cxx /usr/include/stdc-predef.h \
+ /home/jorik/study/TwoForces/build/lexer.cxx /usr/include/stdc-predef.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -147,7 +147,7 @@ CMakeFiles/ParaCL.dir/lexer.cxx.o: \
  /usr/include/c++/11/ext/string_conversions.h /usr/include/c++/11/cstdio \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/jorik/study/PARACL/driver.hxx /usr/include/c++/11/map \
+ /home/jorik/study/TwoForces/driver.hxx /usr/include/c++/11/map \
  /usr/include/c++/11/bits/stl_tree.h \
  /usr/include/c++/11/ext/aligned_buffer.h \
  /usr/include/c++/11/bits/node_handle.h \
@@ -157,7 +157,7 @@ CMakeFiles/ParaCL.dir/lexer.cxx.o: \
  /usr/include/c++/11/bits/invoke.h \
  /usr/include/c++/11/bits/stl_multimap.h \
  /usr/include/c++/11/bits/erase_if.h \
- /home/jorik/study/PARACL/build/parser.hxx /usr/include/c++/11/cassert \
+ /home/jorik/study/TwoForces/build/parser.hxx /usr/include/c++/11/cassert \
  /usr/include/assert.h /usr/include/c++/11/iostream \
  /usr/include/c++/11/ostream /usr/include/c++/11/ios \
  /usr/include/c++/11/exception /usr/include/c++/11/bits/exception_ptr.h \
@@ -184,8 +184,8 @@ CMakeFiles/ParaCL.dir/lexer.cxx.o: \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
- /home/jorik/study/PARACL/build/location.hh \
- /home/jorik/study/PARACL/build/parser.hxx /usr/include/unistd.h \
+ /home/jorik/study/TwoForces/build/location.hh \
+ /home/jorik/study/TwoForces/build/parser.hxx /usr/include/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h \

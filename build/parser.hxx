@@ -32,7 +32,7 @@
 
 
 /**
- ** \file /home/jorik/study/PARACL/build/parser.hxx
+ ** \file /home/jorik/study/TwoForces/build/parser.hxx
  ** Define the yy::parser class.
  */
 
@@ -41,15 +41,15 @@
 // Undocumented macros, especially those whose name start with YY_,
 // are private implementation details.  Do not rely on them.
 
-#ifndef YY_YY_HOME_JORIK_STUDY_PARACL_BUILD_PARSER_HXX_INCLUDED
-# define YY_YY_HOME_JORIK_STUDY_PARACL_BUILD_PARSER_HXX_INCLUDED
+#ifndef YY_YY_HOME_JORIK_STUDY_TWOFORCES_BUILD_PARSER_HXX_INCLUDED
+# define YY_YY_HOME_JORIK_STUDY_TWOFORCES_BUILD_PARSER_HXX_INCLUDED
 // "%code requires" blocks.
-#line 10 "parser.yy"
+#line 11 "parser.yy"
 
   #include <string>
   namespace yy { class driver; }
 
-#line 53 "/home/jorik/study/PARACL/build/parser.hxx"
+#line 53 "/home/jorik/study/TwoForces/build/parser.hxx"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -183,7 +183,7 @@
 #endif
 
 namespace yy {
-#line 187 "/home/jorik/study/PARACL/build/parser.hxx"
+#line 187 "/home/jorik/study/TwoForces/build/parser.hxx"
 
 
 
@@ -389,6 +389,8 @@ namespace yy {
     {
       // NUMBER
       // expr
+      // term
+      // fact
       char dummy1[sizeof (int)];
 
       // ID
@@ -441,15 +443,21 @@ namespace yy {
       enum yytokentype
       {
         END = 0,
-        ASGN = 258,
-        MINUS = 259,
-        PLUS = 260,
-        MUL = 261,
-        DIV = 262,
-        LPAREN = 263,
-        RPAREN = 264,
-        ID = 265,
-        NUMBER = 266
+        ASGN = 3,
+        MINUS = 4,
+        PLUS = 5,
+        MUL = 6,
+        DIV = 7,
+        LPAREN = 8,
+        RPAREN = 9,
+        LBRACE = 10,
+        RBRACE = 11,
+        IF = 12,
+        WHILE = 13,
+        PRINT = 14,
+        INPUT = 15,
+        ID = 16,
+        NUMBER = 17
       };
     };
 
@@ -552,12 +560,14 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 11: // NUMBER
-      case 13: // expr
+      case 17: // NUMBER
+      case 23: // expr
+      case 24: // term
+      case 25: // fact
         value.template destroy< int > ();
         break;
 
-      case 10: // ID
+      case 16: // ID
         value.template destroy< std::string > ();
         break;
 
@@ -637,13 +647,13 @@ switch (yytype)
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
       {
-        YY_ASSERT (tok == token::END || tok == token::ASGN || tok == token::MINUS || tok == token::PLUS || tok == token::MUL || tok == token::DIV || tok == token::LPAREN || tok == token::RPAREN);
+        YY_ASSERT (tok == token::END || tok == token::ASGN || tok == token::MINUS || tok == token::PLUS || tok == token::MUL || tok == token::DIV || tok == token::LPAREN || tok == token::RPAREN || tok == token::LBRACE || tok == token::RBRACE || tok == token::IF || tok == token::WHILE || tok == token::PRINT || tok == token::INPUT);
       }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
       {
-        YY_ASSERT (tok == token::END || tok == token::ASGN || tok == token::MINUS || tok == token::PLUS || tok == token::MUL || tok == token::DIV || tok == token::LPAREN || tok == token::RPAREN);
+        YY_ASSERT (tok == token::END || tok == token::ASGN || tok == token::MINUS || tok == token::PLUS || tok == token::MUL || tok == token::DIV || tok == token::LPAREN || tok == token::RPAREN || tok == token::LBRACE || tok == token::RBRACE || tok == token::IF || tok == token::WHILE || tok == token::PRINT || tok == token::INPUT);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -827,6 +837,96 @@ switch (yytype)
       make_RPAREN (const location_type& l)
       {
         return symbol_type (token::RPAREN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_LBRACE (location_type l)
+      {
+        return symbol_type (token::LBRACE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LBRACE (const location_type& l)
+      {
+        return symbol_type (token::LBRACE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_RBRACE (location_type l)
+      {
+        return symbol_type (token::RBRACE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_RBRACE (const location_type& l)
+      {
+        return symbol_type (token::RBRACE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_IF (location_type l)
+      {
+        return symbol_type (token::IF, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_IF (const location_type& l)
+      {
+        return symbol_type (token::IF, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_WHILE (location_type l)
+      {
+        return symbol_type (token::WHILE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_WHILE (const location_type& l)
+      {
+        return symbol_type (token::WHILE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PRINT (location_type l)
+      {
+        return symbol_type (token::PRINT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PRINT (const location_type& l)
+      {
+        return symbol_type (token::PRINT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_INPUT (location_type l)
+      {
+        return symbol_type (token::INPUT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_INPUT (const location_type& l)
+      {
+        return symbol_type (token::INPUT, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1165,10 +1265,10 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 26,     ///< Last index in yytable_.
-      yynnts_ = 5,  ///< Number of nonterminal symbols.
-      yyfinal_ = 3, ///< Termination state number.
-      yyntokens_ = 12  ///< Number of tokens.
+      yylast_ = 23,     ///< Last index in yytable_.
+      yynnts_ = 8,  ///< Number of nonterminal symbols.
+      yyfinal_ = 2, ///< Termination state number.
+      yyntokens_ = 18  ///< Number of tokens.
     };
 
 
@@ -1180,48 +1280,7 @@ switch (yytype)
   parser::token_number_type
   parser::yytranslate_ (int t)
   {
-    // YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to
-    // TOKEN-NUM as returned by yylex.
-    static
-    const token_number_type
-    translate_table[] =
-    {
-       0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11
-    };
-    const int user_token_number_max_ = 266;
-
-    if (t <= 0)
-      return yyeof_;
-    else if (t <= user_token_number_max_)
-      return translate_table[t];
-    else
-      return yy_undef_token_;
+    return static_cast<token_number_type> (t);
   }
 
   // basic_symbol.
@@ -1234,12 +1293,14 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 11: // NUMBER
-      case 13: // expr
+      case 17: // NUMBER
+      case 23: // expr
+      case 24: // term
+      case 25: // fact
         value.move< int > (std::move (that.value));
         break;
 
-      case 10: // ID
+      case 16: // ID
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -1258,12 +1319,14 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 11: // NUMBER
-      case 13: // expr
+      case 17: // NUMBER
+      case 23: // expr
+      case 24: // term
+      case 25: // fact
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case 10: // ID
+      case 16: // ID
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1289,12 +1352,14 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 11: // NUMBER
-      case 13: // expr
+      case 17: // NUMBER
+      case 23: // expr
+      case 24: // term
+      case 25: // fact
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case 10: // ID
+      case 16: // ID
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1353,10 +1418,10 @@ switch (yytype)
   }
 
 } // yy
-#line 1357 "/home/jorik/study/PARACL/build/parser.hxx"
+#line 1422 "/home/jorik/study/TwoForces/build/parser.hxx"
 
 
 
 
 
-#endif // !YY_YY_HOME_JORIK_STUDY_PARACL_BUILD_PARSER_HXX_INCLUDED
+#endif // !YY_YY_HOME_JORIK_STUDY_TWOFORCES_BUILD_PARSER_HXX_INCLUDED

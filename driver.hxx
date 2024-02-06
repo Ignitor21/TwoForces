@@ -13,10 +13,10 @@ namespace yy
 class driver
 {
 public:
-  driver ();
+  driver();
 
   std::map<std::string, int> variables;
-
+  std::vector<int> statements;
   int result;
 
   // Run the parser on file F.  Return 0 on success.
@@ -26,12 +26,10 @@ public:
   // Whether to generate parser debug traces.
   bool trace_parsing;
 
-  // Handling the scanner.
   void scan_begin ();
   void scan_end ();
-  // Whether to generate scanner debug traces.
+
   bool trace_scanning;
-  // The token's location used by the scanner.
   yy::location location;
 };
 

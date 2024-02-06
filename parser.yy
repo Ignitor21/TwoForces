@@ -5,6 +5,7 @@
 
 %define api.token.constructor
 %define api.value.type variant
+%define api.token.raw
 %define parse.assert
 
 %code requires {
@@ -25,44 +26,75 @@
 
 %token
   END  0  "end of file"
-  ASGN "="
+  ASGN    "="
   MINUS   "-"
   PLUS    "+"
-  MUL    "*"
-  DIV   "/"
+  MUL     "*"
+  DIV     "/"
   LPAREN  "("
   RPAREN  ")"
+  LBRACE  "{"
+  RBRACE  "}"
+  IF      "if"
+  WHILE   "while" 
+  PRINT   "print"
+  INPUT   "?"
 ;
 
 %token <std::string> ID
-%token <int> NUMBER 
-%nterm <int> expr
-
-%printer { yyo << $$; } <*>;
-
-%%
-
-unit: assignments expr  { drv.result = $2; };
-
-assignments:
-  %empty                 {}
-| assignments assignment {};
-
-assignment:
-  ID "=" expr { drv.variables[$1] = $3; };
+%token <int> NUMBER
+%nterm stmts 
+%nterm stmt
+%nterm assignment output
+%nterm <int> expr term fact
 
 %right "=";
 %left "+" "-";
 %left "*" "/";
 
+%printer { yyo << $$; } <*>;
+
+%%
+
+stmts: 
+  %empty  
+| stmts stmt {};
+
+stmt:
+  assignment {}
+| output     {}
+;
+
+assignment:
+  ID "=" expr { drv.variables[$1] = $3; };
+
+output:
+  "print" expr { std::cout << $2 << "\n"; };
+
 expr:
-  NUMBER
-| ID  { $$ = drv.variables[$1]; }
-| expr "+" expr   { $$ = $1 + $3; }
-| expr "-" expr   { $$ = $1 - $3; }
-| expr "*" expr   { $$ = $1 * $3; }
-| expr "/" expr   { $$ = $1 / $3; }
-| "(" expr ")"    { $$ = $2; }
+  expr "+" term { $$ = $1 + $3; }
+| expr "-" term { $$ = $1 - $3; }
+| term
+;
+
+term:
+  term "*" fact { $$ = $1 * $3; }
+| term "/" fact { $$ = $1 / $3; }
+| fact
+;
+
+fact:
+  NUMBER       
+| ID           { $$ = drv.variables[$1]; }
+| "?"         
+  { 
+    int n;
+    std::cin >> n;
+    $$ = n;
+  }
+| "(" expr ")" { $$ = $2; }
+;
+
 %%
 
 void

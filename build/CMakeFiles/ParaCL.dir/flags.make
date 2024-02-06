@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/jorik/study/PARACL/build -I/home/jorik/study/PARACL
+CXX_INCLUDES = -I/home/jorik/study/TwoForces/build -I/home/jorik/study/TwoForces
 
 CXX_FLAGS = -std=gnu++20
 

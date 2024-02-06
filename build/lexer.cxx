@@ -1,6 +1,6 @@
-#line 2 "/home/jorik/study/PARACL/build/lexer.cxx"
+#line 2 "/home/jorik/study/TwoForces/build/lexer.cxx"
 
-#line 4 "/home/jorik/study/PARACL/build/lexer.cxx"
+#line 4 "/home/jorik/study/TwoForces/build/lexer.cxx"
 
 #define  YY_INT_ALIGNED short int
 
@@ -434,8 +434,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 /* %% [3.0] code to copy yytext_ptr to yytext[] goes here, if %array \ */\
 	(yy_c_buf_p) = yy_cp;
 /* %% [4.0] data tables for the DFA and the user's section 1 definitions go here */
-#define YY_NUM_RULES 13
-#define YY_END_OF_BUFFER 14
+#define YY_NUM_RULES 15
+#define YY_END_OF_BUFFER 16
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -443,28 +443,29 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[21] =
+static const flex_int16_t yy_accept[27] =
     {   0,
-        0,    0,   14,   12,    1,    2,    7,    8,    5,    4,
-        3,    6,   10,    9,   11,    1,    2,   10,   11,    0
+        0,    0,   16,   14,    1,    2,    7,    8,    5,    4,
+        3,    6,   12,    9,   11,   13,   13,    1,    2,   12,
+       13,   13,   13,   13,   10,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
-        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
+        2,    2,    2,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    1,    1,    1,    1,    1,    1,    1,    4,
         5,    6,    7,    1,    8,    1,    9,   10,   10,   10,
        10,   10,   10,   10,   10,   10,   10,    1,    1,    1,
-       11,    1,    1,    1,   12,   12,   12,   12,   12,   12,
-       12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
-       12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
-        1,    1,    1,    1,   13,    1,   12,   12,   12,   12,
+       11,    1,   12,    1,   13,   13,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+        1,    1,    1,    1,   14,    1,   13,   13,   13,   13,
 
-       12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
-       12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
-       12,   12,    1,    1,    1,    1,    1,    1,    1,    1,
+       13,   13,   13,   13,   15,   13,   13,   13,   13,   16,
+       13,   17,   13,   18,   13,   19,   13,   13,   13,   13,
+       13,   13,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -481,40 +482,44 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[14] =
+static const YY_CHAR yy_meta[20] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
-        1,    2,    2
+        1,    1,    2,    2,    2,    2,    2,    2,    2
     } ;
 
-static const flex_int16_t yy_base[22] =
+static const flex_int16_t yy_base[28] =
     {   0,
-        0,    0,   21,   22,   18,   16,   22,   22,   22,   22,
-       22,   22,    8,   22,    0,   15,   13,    5,    0,   22,
-       12
+        0,    0,   31,   32,   28,   26,   32,   32,   32,   32,
+       32,   32,   18,   32,   32,    0,    9,   24,   22,   14,
+        0,    8,    6,    2,    0,   32,   18
     } ;
 
-static const flex_int16_t yy_def[22] =
+static const flex_int16_t yy_def[28] =
     {   0,
-       20,    1,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20,   21,   20,   20,   20,   21,    0,
-       20
+       26,    1,   26,   26,   26,   26,   26,   26,   26,   26,
+       26,   26,   26,   26,   26,   27,   27,   26,   26,   26,
+       27,   27,   27,   27,   27,    0,   26
     } ;
 
-static const flex_int16_t yy_nxt[36] =
+static const flex_int16_t yy_nxt[52] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
-       14,   15,    4,   19,   18,   17,   16,   18,   17,   16,
-       20,    3,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20,   20
+       14,   15,   16,    4,   16,   16,   17,   16,   16,   21,
+       25,   24,   23,   20,   19,   18,   22,   20,   19,   18,
+       26,    3,   26,   26,   26,   26,   26,   26,   26,   26,
+       26,   26,   26,   26,   26,   26,   26,   26,   26,   26,
+       26
     } ;
 
-static const flex_int16_t yy_chk[36] =
+static const flex_int16_t yy_chk[52] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,   21,   18,   17,   16,   13,    6,    5,
-        3,   20,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20,   20
+        1,    1,    1,    1,    1,    1,    1,    1,    1,   27,
+       24,   23,   22,   20,   19,   18,   17,   13,    6,    5,
+        3,   26,   26,   26,   26,   26,   26,   26,   26,   26,
+       26,   26,   26,   26,   26,   26,   26,   26,   26,   26,
+       26
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -523,10 +528,10 @@ static char *yy_last_accepting_cpos;
 extern int yy_flex_debug;
 int yy_flex_debug = 1;
 
-static const flex_int16_t yy_rule_linenum[13] =
+static const flex_int16_t yy_rule_linenum[15] =
     {   0,
-       98,   99,  101,  102,  103,  104,  105,  106,  107,  109,
-      110,  111
+       38,   39,   41,   42,   43,   44,   45,   46,   47,   48,
+       49,   51,   52,   53
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -542,84 +547,22 @@ char *yytext;
 # include <cerrno>
 # include <climits>
 # include <cstdlib>
-# include <cstring> // strerror
+# include <cstring>
 # include <string>
 # include "driver.hxx"
 # include "parser.hxx"
-#line 550 "/home/jorik/study/PARACL/build/lexer.cxx"
-#line 12 "scanner.ll"
-#if defined __clang__
-# define CLANG_VERSION (__clang_major__ * 100 + __clang_minor__)
-#endif
-
-// Clang and ICC like to pretend they are GCC.
-#if defined __GNUC__ && !defined __clang__ && !defined __ICC
-# define GCC_VERSION (__GNUC__ * 100 + __GNUC_MINOR__)
-#endif
-
-// Pacify warnings in yy_init_buffer (observed with Flex 2.6.4)
-// and GCC 6.4.0, 7.3.0 with -O3.
-#if defined GCC_VERSION && 600 <= GCC_VERSION
-# pragma GCC diagnostic ignored "-Wnull-dereference"
-#endif
-
-// This example uses Flex's C backend, yet compiles it as C++.
-// So expect warnings about C style casts and NULL.
-#if defined CLANG_VERSION && 500 <= CLANG_VERSION
-# pragma clang diagnostic ignored "-Wold-style-cast"
-# pragma clang diagnostic ignored "-Wzero-as-null-pointer-constant"
-#elif defined GCC_VERSION && 407 <= GCC_VERSION
-# pragma GCC diagnostic ignored "-Wold-style-cast"
-# pragma GCC diagnostic ignored "-Wzero-as-null-pointer-constant"
-#endif
-
-#define FLEX_VERSION (YY_FLEX_MAJOR_VERSION * 100 + YY_FLEX_MINOR_VERSION)
-
-// Old versions of Flex (2.5.35) generate an incomplete documentation comment.
-//
-//  In file included from src/scan-code-c.c:3:
-//  src/scan-code.c:2198:21: error: empty paragraph passed to '@param' command
-//        [-Werror,-Wdocumentation]
-//   * @param line_number
-//     ~~~~~~~~~~~~~~~~~^
-//  1 error generated.
-#if FLEX_VERSION < 206 && defined CLANG_VERSION
-# pragma clang diagnostic ignored "-Wdocumentation"
-#endif
-
-// Old versions of Flex (2.5.35) use 'register'.  Warnings introduced in
-// GCC 7 and Clang 6.
-#if FLEX_VERSION < 206
-# if defined CLANG_VERSION && 600 <= CLANG_VERSION
-#  pragma clang diagnostic ignored "-Wdeprecated-register"
-# elif defined GCC_VERSION && 700 <= GCC_VERSION
-#  pragma GCC diagnostic ignored "-Wregister"
-# endif
-#endif
-
-#if FLEX_VERSION < 206
-# if defined CLANG_VERSION
-#  pragma clang diagnostic ignored "-Wconversion"
-#  pragma clang diagnostic ignored "-Wdocumentation"
-#  pragma clang diagnostic ignored "-Wshorten-64-to-32"
-#  pragma clang diagnostic ignored "-Wsign-conversion"
-# elif defined GCC_VERSION
-#  pragma GCC diagnostic ignored "-Wconversion"
-#  pragma GCC diagnostic ignored "-Wsign-conversion"
-# endif
-#endif
-#line 612 "/home/jorik/study/PARACL/build/lexer.cxx"
+#line 555 "/home/jorik/study/TwoForces/build/lexer.cxx"
 #define YY_NO_INPUT 1
-#line 77 "scanner.ll"
+#line 14 "scanner.ll"
   // A number symbol corresponding to the value in S.
   yy::parser::symbol_type
   make_NUMBER (const std::string &s, const yy::parser::location_type& loc);
-#line 618 "/home/jorik/study/PARACL/build/lexer.cxx"
-#line 87 "scanner.ll"
+#line 561 "/home/jorik/study/TwoForces/build/lexer.cxx"
+#line 24 "scanner.ll"
   // Code run each time a pattern is matched.
   # define YY_USER_ACTION  loc.columns (yyleng);
-#line 622 "/home/jorik/study/PARACL/build/lexer.cxx"
-#line 623 "/home/jorik/study/PARACL/build/lexer.cxx"
+#line 565 "/home/jorik/study/TwoForces/build/lexer.cxx"
+#line 566 "/home/jorik/study/TwoForces/build/lexer.cxx"
 
 #define INITIAL 0
 
@@ -897,16 +840,18 @@ YY_DECL
 
 	{
 /* %% [7.0] user's declarations go here */
-#line 90 "scanner.ll"
+#line 28 "scanner.ll"
 
 
-#line 93 "scanner.ll"
+
+#line 32 "scanner.ll"
   // A handy shortcut to the location held by the driver.
   yy::location& loc = drv.location;
   // Code run each time yylex is called.
   loc.step ();
 
-#line 910 "/home/jorik/study/PARACL/build/lexer.cxx"
+
+#line 855 "/home/jorik/study/TwoForces/build/lexer.cxx"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -935,13 +880,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 21 )
+				if ( yy_current_state >= 27 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_current_state != 20 );
+		while ( yy_current_state != 26 );
 		yy_cp = (yy_last_accepting_cpos);
 		yy_current_state = (yy_last_accepting_state);
 
@@ -960,13 +905,13 @@ do_action:	/* This label is used only to access EOF actions. */
 			{
 			if ( yy_act == 0 )
 				fprintf( stderr, "--scanner backing up\n" );
-			else if ( yy_act < 13 )
+			else if ( yy_act < 15 )
 				fprintf( stderr, "--accepting rule at line %ld (\"%s\")\n",
 				         (long)yy_rule_linenum[yy_act], yytext );
-			else if ( yy_act == 13 )
+			else if ( yy_act == 15 )
 				fprintf( stderr, "--accepting default rule (\"%s\")\n",
 				         yytext );
-			else if ( yy_act == 14 )
+			else if ( yy_act == 16 )
 				fprintf( stderr, "--(end of buffer or a NUL)\n" );
 			else
 				fprintf( stderr, "--EOF (start condition %d)\n", YY_START );
@@ -984,78 +929,88 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 98 "scanner.ll"
+#line 38 "scanner.ll"
 loc.step ();
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 99 "scanner.ll"
+#line 39 "scanner.ll"
 loc.lines (yyleng); loc.step ();
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 101 "scanner.ll"
+#line 41 "scanner.ll"
 return yy::parser::make_MINUS  (loc);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 102 "scanner.ll"
+#line 42 "scanner.ll"
 return yy::parser::make_PLUS   (loc);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 103 "scanner.ll"
+#line 43 "scanner.ll"
 return yy::parser::make_MUL   (loc);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 104 "scanner.ll"
+#line 44 "scanner.ll"
 return yy::parser::make_DIV  (loc);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 105 "scanner.ll"
+#line 45 "scanner.ll"
 return yy::parser::make_LPAREN (loc);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 106 "scanner.ll"
+#line 46 "scanner.ll"
 return yy::parser::make_RPAREN (loc);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 107 "scanner.ll"
+#line 47 "scanner.ll"
 return yy::parser::make_ASGN (loc);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 109 "scanner.ll"
-return make_NUMBER (yytext, loc);
+#line 48 "scanner.ll"
+return yy::parser::make_PRINT (loc);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 110 "scanner.ll"
-return yy::parser::make_ID (yytext, loc);
+#line 49 "scanner.ll"
+return yy::parser::make_INPUT (loc);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 111 "scanner.ll"
+#line 51 "scanner.ll"
+return make_NUMBER (yytext, loc);
+	YY_BREAK
+case 13:
+YY_RULE_SETUP
+#line 52 "scanner.ll"
+return yy::parser::make_ID (yytext, loc);
+	YY_BREAK
+case 14:
+YY_RULE_SETUP
+#line 53 "scanner.ll"
 {
              throw yy::parser::syntax_error
                (loc, "invalid character: " + std::string(yytext));
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 115 "scanner.ll"
+#line 57 "scanner.ll"
 return yy::parser::make_END (loc);
 	YY_BREAK
-case 13:
+case 15:
 YY_RULE_SETUP
-#line 116 "scanner.ll"
+#line 58 "scanner.ll"
 ECHO;
 	YY_BREAK
-#line 1059 "/home/jorik/study/PARACL/build/lexer.cxx"
+#line 1014 "/home/jorik/study/TwoForces/build/lexer.cxx"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1374,7 +1329,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 21 )
+			if ( yy_current_state >= 27 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1407,11 +1362,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 21 )
+		if ( yy_current_state >= 27 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 20);
+	yy_is_jam = (yy_current_state == 26);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2160,7 +2115,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 116 "scanner.ll"
+#line 58 "scanner.ll"
 
 
 yy::parser::symbol_type
@@ -2188,5 +2143,6 @@ void yy::driver::scan_begin ()
 void yy::driver::scan_end ()
 {
   fclose (yyin);
+  yylex_destroy();
 }
 

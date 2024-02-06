@@ -1,6 +1,6 @@
 CMakeFiles/ParaCL.dir/parser.cxx.o: \
- /home/jorik/study/PARACL/build/parser.cxx /usr/include/stdc-predef.h \
- /home/jorik/study/PARACL/build/parser.hxx /usr/include/c++/11/string \
+ /home/jorik/study/TwoForces/build/parser.cxx /usr/include/stdc-predef.h \
+ /home/jorik/study/TwoForces/build/parser.hxx /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -164,8 +164,8 @@ CMakeFiles/ParaCL.dir/parser.cxx.o: \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
- /home/jorik/study/PARACL/build/location.hh \
- /home/jorik/study/PARACL/driver.hxx /usr/include/c++/11/map \
+ /home/jorik/study/TwoForces/build/location.hh \
+ /home/jorik/study/TwoForces/driver.hxx /usr/include/c++/11/map \
  /usr/include/c++/11/bits/stl_tree.h \
  /usr/include/c++/11/ext/aligned_buffer.h \
  /usr/include/c++/11/bits/node_handle.h \
@@ -175,4 +175,4 @@ CMakeFiles/ParaCL.dir/parser.cxx.o: \
  /usr/include/c++/11/bits/invoke.h \
  /usr/include/c++/11/bits/stl_multimap.h \
  /usr/include/c++/11/bits/erase_if.h \
- /home/jorik/study/PARACL/build/parser.hxx
+ /home/jorik/study/TwoForces/build/parser.hxx

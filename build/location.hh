@@ -31,12 +31,12 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/jorik/study/PARACL/build/location.hh
+ ** \file /home/jorik/study/TwoForces/build/location.hh
  ** Define the yy::location class.
  */
 
-#ifndef YY_YY_HOME_JORIK_STUDY_PARACL_BUILD_LOCATION_HH_INCLUDED
-# define YY_YY_HOME_JORIK_STUDY_PARACL_BUILD_LOCATION_HH_INCLUDED
+#ifndef YY_YY_HOME_JORIK_STUDY_TWOFORCES_BUILD_LOCATION_HH_INCLUDED
+# define YY_YY_HOME_JORIK_STUDY_TWOFORCES_BUILD_LOCATION_HH_INCLUDED
 
 # include <iostream>
 # include <string>
@@ -54,7 +54,7 @@
 # endif
 
 namespace yy {
-#line 58 "/home/jorik/study/PARACL/build/location.hh"
+#line 58 "/home/jorik/study/TwoForces/build/location.hh"
 
   /// A point in a source file.
   class position
@@ -327,6 +327,6 @@ namespace yy {
   }
 
 } // yy
-#line 331 "/home/jorik/study/PARACL/build/location.hh"
+#line 331 "/home/jorik/study/TwoForces/build/location.hh"
 
-#endif // !YY_YY_HOME_JORIK_STUDY_PARACL_BUILD_LOCATION_HH_INCLUDED
+#endif // !YY_YY_HOME_JORIK_STUDY_TWOFORCES_BUILD_LOCATION_HH_INCLUDED
