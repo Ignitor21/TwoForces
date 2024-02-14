@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include "parser.hxx"
 
-#define YY_DECL yy::parser::symbol_type yylex(yy::driver& drv)
+#define YY_DECL yy::parser::symbol_type yylex(yy::location& loc)
 
 YY_DECL;
 
@@ -13,23 +13,20 @@ namespace yy
   
 class driver
 {
-public:
-  driver();
-
-  std::unordered_map<std::string, int> variables;
-
-  // Run the parser on file F.  Return 0 on success.
-  int parse (const std::string& f);
-  // The name of the file being parsed.
-  std::string file;
-  // Whether to generate parser debug traces.
-  bool trace_parsing;
+private:
+  std::unordered_map<std::string, int> symtab_;
+  location location_;
+  std::string file_;
 
   void scan_begin();
   void scan_end();
+public:
+  bool trace_scanning_;
+  bool trace_parsing_;
 
-  bool trace_scanning;
-  yy::location location;
+  driver();
+  int parse (const std::string& f);
+
 };
 
 }

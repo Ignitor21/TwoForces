@@ -6,7 +6,7 @@ find_package(FLEX REQUIRED)
 
 set(CMAKE_CXX_FLAGS_DEBUG "-Wall -g -O0")
 
-flex_target (lexer  scanner.ll  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cxx)
+flex_target(lexer  scanner.ll  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cxx DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/lexer.hxx)
 bison_target(parser parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cxx)
 
 add_flex_bison_dependency(lexer parser)

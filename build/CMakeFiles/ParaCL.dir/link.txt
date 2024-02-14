@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/ParaCL.dir/main.cxx.o CMakeFiles/ParaCL.dir/driver.cxx.o CMakeFiles/ParaCL.dir/parser.cxx.o CMakeFiles/ParaCL.dir/lexer.cxx.o -o ParaCL 

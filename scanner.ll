@@ -18,19 +18,16 @@
 
 WS       [ \f\r\t\v]
 ID       [a-zA-Z][a-zA-Z_0-9]*
-NUMBER   [0-9]+
+NUMBER   (0|[1-9][0-9]*)
 
 %{
   // Code run each time a pattern is matched.
-  # define YY_USER_ACTION  loc.columns (yyleng);
+  # define YY_USER_ACTION  loc.columns(yyleng);
 %}
 
 %%
 
 %{
-  // A handy shortcut to the location held by the driver.
-  yy::location& loc = drv.location;
-  // Code run each time yylex is called.
   loc.step();
 %}
 
@@ -67,20 +64,4 @@ yy::parser::symbol_type make_NUMBER (const std::string &s, const yy::parser::loc
   return yy::parser::make_NUMBER ((int) n, loc);
 }
 
-void yy::driver::scan_begin ()
-{
-  yy_flex_debug = trace_scanning;
-  if (file.empty () || file == "-")
-        yyin = stdin;
-  else if (!(yyin = fopen (file.c_str (), "r")))
-    {
-        std::cerr << "cannot open " << file << ": " << strerror(errno) << '\n';
-        exit (EXIT_FAILURE);
-    }
-}
 
-void yy::driver::scan_end ()
-{
-    fclose(yyin);
-    yylex_destroy();
-}

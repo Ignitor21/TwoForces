@@ -10,11 +10,12 @@
 
 %code requires {
   #include <string>
+  #include <unordered_map>
   namespace yy { class driver; }
 }
 
-%param { yy::driver& drv }
-
+%parse-param { std::unordered_map<std::string, int> symtab}
+%param { yy::location& loc}
 %locations
 
 %define parse.trace
@@ -67,7 +68,7 @@ stmt:
 ;
 
 assignment:
-  ID "=" expr { drv.variables[$1] = $3; };
+  ID "=" expr { symtab[$1] = $3; };
 
 output:
   "print" expr { std::cout << $2 << "\n"; };
@@ -86,7 +87,7 @@ term:
 
 fact:
   NUMBER       
-| ID           { $$ = drv.variables[$1]; }
+| ID           { $$ = symtab[$1]; }
 | "?"         
   { 
     int n;

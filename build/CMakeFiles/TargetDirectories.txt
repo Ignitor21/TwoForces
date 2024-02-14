@@ -1,3 +1,0 @@
-/home/jorik/study/TwoForces/build/CMakeFiles/ParaCL.dir
-/home/jorik/study/TwoForces/build/CMakeFiles/edit_cache.dir
-/home/jorik/study/TwoForces/build/CMakeFiles/rebuild_cache.dir
