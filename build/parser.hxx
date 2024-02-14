@@ -452,12 +452,13 @@ namespace yy {
         RPAREN = 9,
         LBRACE = 10,
         RBRACE = 11,
-        IF = 12,
-        WHILE = 13,
-        PRINT = 14,
-        INPUT = 15,
-        ID = 16,
-        NUMBER = 17
+        SCOLON = 12,
+        IF = 13,
+        WHILE = 14,
+        PRINT = 15,
+        INPUT = 16,
+        ID = 17,
+        NUMBER = 18
       };
     };
 
@@ -560,14 +561,14 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         value.template destroy< int > ();
         break;
 
-      case 16: // ID
+      case 17: // ID
         value.template destroy< std::string > ();
         break;
 
@@ -647,13 +648,13 @@ switch (yytype)
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
       {
-        YY_ASSERT (tok == token::END || tok == token::ASGN || tok == token::MINUS || tok == token::PLUS || tok == token::MUL || tok == token::DIV || tok == token::LPAREN || tok == token::RPAREN || tok == token::LBRACE || tok == token::RBRACE || tok == token::IF || tok == token::WHILE || tok == token::PRINT || tok == token::INPUT);
+        YY_ASSERT (tok == token::END || tok == token::ASGN || tok == token::MINUS || tok == token::PLUS || tok == token::MUL || tok == token::DIV || tok == token::LPAREN || tok == token::RPAREN || tok == token::LBRACE || tok == token::RBRACE || tok == token::SCOLON || tok == token::IF || tok == token::WHILE || tok == token::PRINT || tok == token::INPUT);
       }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
       {
-        YY_ASSERT (tok == token::END || tok == token::ASGN || tok == token::MINUS || tok == token::PLUS || tok == token::MUL || tok == token::DIV || tok == token::LPAREN || tok == token::RPAREN || tok == token::LBRACE || tok == token::RBRACE || tok == token::IF || tok == token::WHILE || tok == token::PRINT || tok == token::INPUT);
+        YY_ASSERT (tok == token::END || tok == token::ASGN || tok == token::MINUS || tok == token::PLUS || tok == token::MUL || tok == token::DIV || tok == token::LPAREN || tok == token::RPAREN || tok == token::LBRACE || tok == token::RBRACE || tok == token::SCOLON || tok == token::IF || tok == token::WHILE || tok == token::PRINT || tok == token::INPUT);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -867,6 +868,21 @@ switch (yytype)
       make_RBRACE (const location_type& l)
       {
         return symbol_type (token::RBRACE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SCOLON (location_type l)
+      {
+        return symbol_type (token::SCOLON, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_SCOLON (const location_type& l)
+      {
+        return symbol_type (token::SCOLON, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1265,10 +1281,10 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 23,     ///< Last index in yytable_.
+      yylast_ = 24,     ///< Last index in yytable_.
       yynnts_ = 8,  ///< Number of nonterminal symbols.
       yyfinal_ = 2, ///< Termination state number.
-      yyntokens_ = 18  ///< Number of tokens.
+      yyntokens_ = 19  ///< Number of tokens.
     };
 
 
@@ -1293,14 +1309,14 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         value.move< int > (std::move (that.value));
         break;
 
-      case 16: // ID
+      case 17: // ID
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -1319,14 +1335,14 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case 16: // ID
+      case 17: // ID
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1352,14 +1368,14 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case 16: // ID
+      case 17: // ID
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1418,7 +1434,7 @@ switch (yytype)
   }
 
 } // yy
-#line 1422 "/home/jorik/study/TwoForces/build/parser.hxx"
+#line 1438 "/home/jorik/study/TwoForces/build/parser.hxx"
 
 
 

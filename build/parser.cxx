@@ -246,14 +246,14 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case 16: // ID
+      case 17: // ID
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -272,14 +272,14 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case 16: // ID
+      case 17: // ID
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -298,14 +298,14 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         value.copy< int > (that.value);
         break;
 
-      case 16: // ID
+      case 17: // ID
         value.copy< std::string > (that.value);
         break;
 
@@ -323,14 +323,14 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         value.move< int > (that.value);
         break;
 
-      case 16: // ID
+      case 17: // ID
         value.move< std::string > (that.value);
         break;
 
@@ -373,32 +373,32 @@ namespace yy {
         << yysym.location << ": ";
     switch (yytype)
     {
-      case 16: // ID
-#line 55 "parser.yy"
+      case 17: // ID
+#line 56 "parser.yy"
                  { yyo << yysym.value.template as < std::string > (); }
 #line 380 "/home/jorik/study/TwoForces/build/parser.cxx"
         break;
 
-      case 17: // NUMBER
-#line 55 "parser.yy"
+      case 18: // NUMBER
+#line 56 "parser.yy"
                  { yyo << yysym.value.template as < int > (); }
 #line 386 "/home/jorik/study/TwoForces/build/parser.cxx"
         break;
 
-      case 23: // expr
-#line 55 "parser.yy"
+      case 24: // expr
+#line 56 "parser.yy"
                  { yyo << yysym.value.template as < int > (); }
 #line 392 "/home/jorik/study/TwoForces/build/parser.cxx"
         break;
 
-      case 24: // term
-#line 55 "parser.yy"
+      case 25: // term
+#line 56 "parser.yy"
                  { yyo << yysym.value.template as < int > (); }
 #line 398 "/home/jorik/study/TwoForces/build/parser.cxx"
         break;
 
-      case 25: // fact
-#line 55 "parser.yy"
+      case 26: // fact
+#line 56 "parser.yy"
                  { yyo << yysym.value.template as < int > (); }
 #line 404 "/home/jorik/study/TwoForces/build/parser.cxx"
         break;
@@ -618,14 +618,14 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 17: // NUMBER
-      case 23: // expr
-      case 24: // term
-      case 25: // fact
+      case 18: // NUMBER
+      case 24: // expr
+      case 25: // term
+      case 26: // fact
         yylhs.value.emplace< int > ();
         break;
 
-      case 16: // ID
+      case 17: // ID
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -650,85 +650,85 @@ namespace yy {
           switch (yyn)
             {
   case 3:
-#line 61 "parser.yy"
+#line 62 "parser.yy"
              {}
 #line 656 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 4:
-#line 64 "parser.yy"
-             {}
+#line 65 "parser.yy"
+                 {}
 #line 662 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 5:
-#line 65 "parser.yy"
-             {}
+#line 66 "parser.yy"
+                 {}
 #line 668 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 6:
-#line 69 "parser.yy"
+#line 70 "parser.yy"
               { drv.variables[yystack_[2].value.as < std::string > ()] = yystack_[0].value.as < int > (); }
 #line 674 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 7:
-#line 72 "parser.yy"
+#line 73 "parser.yy"
                { std::cout << yystack_[0].value.as < int > () << "\n"; }
 #line 680 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 8:
-#line 75 "parser.yy"
+#line 76 "parser.yy"
                 { yylhs.value.as < int > () = yystack_[2].value.as < int > () + yystack_[0].value.as < int > (); }
 #line 686 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 9:
-#line 76 "parser.yy"
+#line 77 "parser.yy"
                 { yylhs.value.as < int > () = yystack_[2].value.as < int > () - yystack_[0].value.as < int > (); }
 #line 692 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 10:
-#line 77 "parser.yy"
+#line 78 "parser.yy"
   { yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
 #line 698 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 11:
-#line 81 "parser.yy"
+#line 82 "parser.yy"
                 { yylhs.value.as < int > () = yystack_[2].value.as < int > () * yystack_[0].value.as < int > (); }
 #line 704 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 12:
-#line 82 "parser.yy"
+#line 83 "parser.yy"
                 { yylhs.value.as < int > () = yystack_[2].value.as < int > () / yystack_[0].value.as < int > (); }
 #line 710 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 13:
-#line 83 "parser.yy"
+#line 84 "parser.yy"
   { yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
 #line 716 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 14:
-#line 87 "parser.yy"
+#line 88 "parser.yy"
   { yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
 #line 722 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 15:
-#line 88 "parser.yy"
+#line 89 "parser.yy"
                { yylhs.value.as < int > () = drv.variables[yystack_[0].value.as < std::string > ()]; }
 #line 728 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
 
   case 16:
-#line 90 "parser.yy"
+#line 91 "parser.yy"
   { 
     int n;
     std::cin >> n;
@@ -738,7 +738,7 @@ namespace yy {
     break;
 
   case 17:
-#line 95 "parser.yy"
+#line 96 "parser.yy"
                { yylhs.value.as < int > () = yystack_[1].value.as < int > (); }
 #line 744 "/home/jorik/study/TwoForces/build/parser.cxx"
     break;
@@ -1015,30 +1015,30 @@ namespace yy {
   }
 
 
-  const signed char parser::yypact_ninf_ = -8;
+  const signed char parser::yypact_ninf_ = -9;
 
   const signed char parser::yytable_ninf_ = -1;
 
   const signed char
   parser::yypact_[] =
   {
-      -8,     0,    -8,    -7,    12,    -8,    -8,    -8,    -7,    -8,
-      -8,    -8,     1,     6,    -8,    -7,    -2,    -7,    -7,    -7,
-      -7,     1,    -8,     6,     6,    -8,    -8
+      -9,     0,    -9,    -7,     3,    -9,    -8,    -4,    -7,    -9,
+      -9,    -9,     9,    12,    -9,    -7,    -9,    -9,    -2,    -7,
+      -7,    -7,    -7,     9,    -9,    12,    12,    -9,    -9
   };
 
   const signed char
   parser::yydefact_[] =
   {
-       2,     0,     1,     0,     0,     3,     4,     5,     0,    16,
-      15,    14,     7,    10,    13,     0,     0,     0,     0,     0,
-       0,     6,    17,     9,     8,    11,    12
+       2,     0,     1,     0,     0,     3,     0,     0,     0,    16,
+      15,    14,     7,    10,    13,     0,     4,     5,     0,     0,
+       0,     0,     0,     6,    17,     9,     8,    11,    12
   };
 
   const signed char
   parser::yypgoto_[] =
   {
-      -8,    -8,    -8,    -8,    -8,    -4,     2,     3
+      -9,    -9,    -9,    -9,    -9,    -3,     1,     2
   };
 
   const signed char
@@ -1050,38 +1050,38 @@ namespace yy {
   const signed char
   parser::yytable_[] =
   {
-       2,     8,    17,    18,    16,    17,    18,    22,     9,    10,
-      11,    21,    19,    20,     3,    15,     4,     0,     0,    23,
-      24,     0,    25,    26
+       2,     8,    19,    20,    16,    18,    15,    24,    17,     9,
+      10,    11,    23,    19,    20,     3,     0,     4,    21,    22,
+      25,    26,     0,    27,    28
   };
 
   const signed char
   parser::yycheck_[] =
   {
-       0,     8,     4,     5,     8,     4,     5,     9,    15,    16,
-      17,    15,     6,     7,    14,     3,    16,    -1,    -1,    17,
-      18,    -1,    19,    20
+       0,     8,     4,     5,    12,     8,     3,     9,    12,    16,
+      17,    18,    15,     4,     5,    15,    -1,    17,     6,     7,
+      19,    20,    -1,    21,    22
   };
 
   const signed char
   parser::yystos_[] =
   {
-       0,    19,     0,    14,    16,    20,    21,    22,     8,    15,
-      16,    17,    23,    24,    25,     3,    23,     4,     5,     6,
-       7,    23,     9,    24,    24,    25,    25
+       0,    20,     0,    15,    17,    21,    22,    23,     8,    16,
+      17,    18,    24,    25,    26,     3,    12,    12,    24,     4,
+       5,     6,     7,    24,     9,    25,    25,    26,    26
   };
 
   const signed char
   parser::yyr1_[] =
   {
-       0,    18,    19,    19,    20,    20,    21,    22,    23,    23,
-      23,    24,    24,    24,    25,    25,    25,    25
+       0,    19,    20,    20,    21,    21,    22,    23,    24,    24,
+      24,    25,    25,    25,    26,    26,    26,    26
   };
 
   const signed char
   parser::yyr2_[] =
   {
-       0,     2,     0,     2,     1,     1,     3,     2,     3,     3,
+       0,     2,     0,     2,     2,     2,     3,     2,     3,     3,
        1,     3,     3,     1,     1,     1,     1,     3
   };
 
@@ -1093,7 +1093,7 @@ namespace yy {
   const parser::yytname_[] =
   {
   "\"end of file\"", "error", "$undefined", "\"=\"", "\"-\"", "\"+\"",
-  "\"*\"", "\"/\"", "\"(\"", "\")\"", "\"{\"", "\"}\"", "\"if\"",
+  "\"*\"", "\"/\"", "\"(\"", "\")\"", "\"{\"", "\"}\"", "\";\"", "\"if\"",
   "\"while\"", "\"print\"", "\"?\"", "ID", "NUMBER", "$accept", "stmts",
   "stmt", "assignment", "output", "expr", "term", "fact", YY_NULLPTR
   };
@@ -1102,8 +1102,8 @@ namespace yy {
   const signed char
   parser::yyrline_[] =
   {
-       0,    60,    60,    61,    64,    65,    69,    72,    75,    76,
-      77,    81,    82,    83,    87,    88,    89,    95
+       0,    61,    61,    62,    65,    66,    70,    73,    76,    77,
+      78,    82,    83,    84,    88,    89,    90,    96
   };
 
   // Print the state stack on the debug stream.
@@ -1139,11 +1139,10 @@ namespace yy {
 } // yy
 #line 1141 "/home/jorik/study/TwoForces/build/parser.cxx"
 
-#line 98 "parser.yy"
+#line 99 "parser.yy"
 
 
-void
-yy::parser::error (const location_type& l, const std::string& m)
+void yy::parser::error (const location_type& l, const std::string& m)
 {
   std::cerr << l << ": " << m << '\n';
 }

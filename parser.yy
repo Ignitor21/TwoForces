@@ -35,6 +35,7 @@
   RPAREN  ")"
   LBRACE  "{"
   RBRACE  "}"
+  SCOLON  ";"
   IF      "if"
   WHILE   "while" 
   PRINT   "print"
@@ -61,8 +62,8 @@ stmts:
 | stmts stmt {};
 
 stmt:
-  assignment {}
-| output     {}
+  assignment ";" {}
+| output     ";" {}
 ;
 
 assignment:
@@ -97,8 +98,7 @@ fact:
 
 %%
 
-void
-yy::parser::error (const location_type& l, const std::string& m)
+void yy::parser::error (const location_type& l, const std::string& m)
 {
   std::cerr << l << ": " << m << '\n';
 }
