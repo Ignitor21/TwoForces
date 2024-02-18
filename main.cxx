@@ -9,9 +9,9 @@ int main (int argc, char *argv[])
     for (int i = 1; i < argc; ++i)
     {
         if (argv[i] == std::string ("-p"))
-            drv.trace_parsing_ = true;
+            drv.set_parse_debug_level(true);
         else if (argv[i] == std::string ("-s"))
-            drv.trace_scanning_ = true;
+            drv.set_scan_debug_level(true);
         else if (drv.parse(argv[i]))
             res = 1;
     }

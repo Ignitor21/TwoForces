@@ -8,10 +8,11 @@
 %define api.token.raw
 %define parse.assert
 
-%code requires {
-  #include <string>
-  #include <unordered_map>
-  namespace yy { class driver; }
+%code requires
+{
+    #include <string>
+    #include <unordered_map>
+    namespace yy { class driver; }
 }
 
 %parse-param { std::unordered_map<std::string, int> symtab}
@@ -21,15 +22,16 @@
 %define parse.trace
 %define parse.error verbose
 
-%code {
-# include "driver.hxx"
+%code 
+{
+    #include "driver.hxx"
 }
 
 %token
   END  0  "end of file"
   ASGN    "="
-  MINUS   "-"
   PLUS    "+"
+  MINUS   "-"
   MUL     "*"
   DIV     "/"
   LPAREN  "("
@@ -54,7 +56,7 @@
 %left "+" "-";
 %left "*" "/";
 
-%printer { yyo << $$; } <*>;
+%printer { yyo << $$;} <*>;
 
 %%
 
