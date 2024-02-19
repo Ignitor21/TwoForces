@@ -12,10 +12,13 @@
 {
     #include <string>
     #include <unordered_map>
-    namespace yy { class driver; }
+    #include "ast.hxx"
+    namespace frontend { class ast; }
+    
+    using namespace frontend;
 }
 
-%parse-param { std::unordered_map<std::string, int> symtab}
+%parse-param { ast& abs_syntax_tree }
 %param { yy::location& loc}
 %locations
 
@@ -25,7 +28,7 @@
 %code 
 {
     #include "driver.hxx"
-}
+}   
 
 %token
   END  0  "end of file"
@@ -47,10 +50,16 @@
 
 %token <std::string> ID
 %token <int> NUMBER
-%nterm stmts 
-%nterm stmt
-%nterm assignment output
-%nterm <int> expr term fact
+%nterm program
+%nterm <scope*> stmts
+%nterm <scope*> scope
+%nterm <INode*> stmt
+%nterm <binary_op_expression*> assignment 
+%nterm <output_statement*> output
+%nterm <expression*> lval
+%nterm <expression*> expr term fact
+%nterm <expression*> if
+%nterm <expression*> while
 
 %right "=";
 %left "+" "-";
@@ -60,41 +69,53 @@
 
 %%
 
+program: stmts { abs_syntax_tree.execute(); } 
+
 stmts: 
-  %empty  
-| stmts stmt {};
+  %empty      {}  
+| stmts stmt  { abs_syntax_tree.add_action($2); }
+| stmts scope { std::cout << "New scope!\n" << "\n"; }
+;
 
 stmt:
-  assignment ";" {}
-| output     ";" {}
+  assignment ";" { $$ = $1; }
+| output     ";" { $$ = $1; }
+| if             {}
+| while
 ;
 
 assignment:
-  ID "=" expr { symtab[$1] = $3; };
+  lval "=" expr { $$ = new binary_op_expression(@2, $1, BinOps::ASGN, $3); }
+;
+
+lval:
+    ID {$$ = new identificator_expression{@1, $1}; } 
+;
 
 output:
-  "print" expr { std::cout << $2 << "\n"; };
+  "print" expr { $$ = new output_statement{@1, $2}; };
 
 expr:
-  expr "+" term { $$ = $1 + $3; }
-| expr "-" term { $$ = $1 - $3; }
-| term
+  expr "+" term { /* $$ = $1 + $3;*/ }
+| expr "-" term { /* $$ = $1 - $3;*/ }
+| term          { /*$$ = $1;    */  }
 ;
 
 term:
-  term "*" fact { $$ = $1 * $3; }
-| term "/" fact { $$ = $1 / $3; }
-| fact
+  term "*" fact { /* $$ = $1 * $3; */}
+| term "/" fact {/* $$ = $1 / $3; */}
+| fact          {/* $$ = $1;    */  }
 ;
 
 fact:
-  NUMBER       
-| ID           { $$ = symtab[$1]; }
+  NUMBER       { $$ = new number_expression{loc, $1};       }
+| ID           { $$ = new identificator_expression{@1, $1}; }
 | "?"         
-  { 
+  {
+  /*
     int n;
     std::cin >> n;
-    $$ = n;
+    $$ = n; */
   }
 | "(" expr ")" { $$ = $2; }
 ;

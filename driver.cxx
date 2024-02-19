@@ -25,9 +25,10 @@ int yy::driver::parse(const std::string& f)
     file_ = f;
     location_.initialize(&file_);
     scan_begin();
-    parser parser_obj(symtab_, location_);
+    parser parser_obj(ast_, location_);
     parser_obj.set_debug_level(trace_parsing_);
     int res = parser_obj.parse();
+    ast_.execute();
     scan_end();
     return res;
 }

@@ -4,7 +4,9 @@
 #include <vector>
 #include <unordered_map>
 
-namespace ast
+#include "location.hh"
+
+namespace frontend
 {
 
 enum class BinOps
@@ -12,7 +14,8 @@ enum class BinOps
     PLUS,
     MINUS,
     MUL,
-    DIV
+    DIV,
+    ASGN
 };
 
 struct INode
@@ -22,7 +25,27 @@ struct INode
     virtual ~INode() {}
 };
 
-class scope final : public
+class statement : public INode
+{
+protected:
+    yy::location location_;
+public:
+    statement(yy::location loc) : location_(loc) {}
+
+};
+
+class output_statement final: public statement
+{
+private:
+    INode* expression_;
+public:
+    int calc() override;
+    void dump() const override;
+
+    output_statement(yy::location loc, INode* expr) : statement(loc), expression_(expr) {}
+};
+
+class scope final : public INode
 {
 private:
     std::vector<INode*> statements_;
@@ -33,7 +56,12 @@ public:
     void dump() const override;
     
     scope() = default;
-    scope(scope* other) : statements_{}, symtab_(other->symtab_), prev_(other) {} 
+    scope(scope* other) : statements_{}, symtab_(other->symtab_), prev_(other) {}
+
+    void add_action(INode* node)
+    {
+        statements_.push_back(node);
+    }
 };
 
 class expression : public INode
@@ -42,9 +70,6 @@ protected:
     yy::location location_;
     int value_;
 public:
-    int calc() override;
-    void dump() const override;
-
     expression(yy::location loc, int val = 0) : location_(loc), value_(val) {}
 };
 
