@@ -18,8 +18,8 @@ void output_statement::dump() const
 
 int scope::calc()
 {
-    for (auto& statement: statements_)
-        statement->calc();
+    for (auto it = statements_.rbegin(), ite = statements_.rend(); it != ite; ++it)
+        (*it)->calc();
 
     return 0;
 }

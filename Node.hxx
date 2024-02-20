@@ -48,7 +48,7 @@ public:
 class scope final : public INode
 {
 private:
-    std::vector<INode*> statements_;
+    std::vector<INode*> actions_;
     std::unordered_map<std::string, int> symtab_;
     scope *prev_;
 public:
@@ -56,11 +56,17 @@ public:
     void dump() const override;
     
     scope() = default;
-    scope(scope* other) : statements_{}, symtab_(other->symtab_), prev_(other) {}
+    scope(scope* other) : actions_{}, symtab_(other->symtab_), prev_(other) {}
+
+    void add_name(const std::string& name, int value)
+    {
+        symtab_[name] = value;
+        return;
+    }
 
     void add_action(INode* node)
     {
-        statements_.push_back(node);
+        actions_.push_back(node);
     }
 };
 
@@ -100,6 +106,11 @@ public:
     void dump() const override;
 
     identificator_expression(yy::location loc, const std::string& name) : expression(loc), name_(name) {}
+
+    const std::string& get_name() const noexcept
+    {
+        return name_;
+    }
 };
 
 class binary_op_expression final : public expression

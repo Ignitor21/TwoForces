@@ -73,43 +73,42 @@ program: stmts { abs_syntax_tree.execute(); }
 
 stmts: 
   %empty      {}  
-| stmts stmt  { abs_syntax_tree.add_action($2); }
+| stmts stmt  { abs_syntax_tree.add_action($1); }
 | stmts scope { std::cout << "New scope!\n" << "\n"; }
 ;
 
 stmt:
   assignment ";" { $$ = $1; }
 | output     ";" { $$ = $1; }
-| if             {}
-| while
 ;
 
 assignment:
-  lval "=" expr { $$ = new binary_op_expression(@2, $1, BinOps::ASGN, $3); }
+  lval "=" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::ASGN, $3)); }
 ;
 
 lval:
-    ID {$$ = new identificator_expression{@1, $1}; } 
+    ID { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1)); } 
 ;
 
 output:
-  "print" expr { $$ = new output_statement{@1, $2}; };
+  "print" expr { $$ = abs_syntax_tree.create_node(output_statement(@1, $2)); }
+;
 
 expr:
   expr "+" term { /* $$ = $1 + $3;*/ }
 | expr "-" term { /* $$ = $1 - $3;*/ }
-| term          { /*$$ = $1;    */  }
+| term          { $$ = $1;           }
 ;
 
 term:
   term "*" fact { /* $$ = $1 * $3; */}
 | term "/" fact {/* $$ = $1 / $3; */}
-| fact          {/* $$ = $1;    */  }
+| fact          { $$ = $1;          }
 ;
 
 fact:
-  NUMBER       { $$ = new number_expression{loc, $1};       }
-| ID           { $$ = new identificator_expression{@1, $1}; }
+  NUMBER       { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));       }
+| ID           { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1)); }
 | "?"         
   {
   /*
