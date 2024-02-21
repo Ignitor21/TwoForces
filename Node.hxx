@@ -34,15 +34,17 @@ public:
 
 };
 
+class expression;
+
 class output_statement final: public statement
 {
 private:
-    INode* expression_;
+    expression* expression_;
 public:
     int calc() override;
     void dump() const override;
 
-    output_statement(yy::location loc, INode* expr) : statement(loc), expression_(expr) {}
+    output_statement(yy::location loc, expression* expr) : statement(loc), expression_(expr) {}
 };
 
 class scope final : public INode
@@ -58,10 +60,15 @@ public:
     scope() = default;
     scope(scope* other) : actions_{}, symtab_(other->symtab_), prev_(other) {}
 
-    void add_name(const std::string& name, int value)
+    void set_value(const std::string& name, int value)
     {
         symtab_[name] = value;
         return;
+    }
+
+    int get_value(const std::string& name)
+    {
+        return symtab_[name];
     }
 
     void add_action(INode* node)
@@ -76,6 +83,9 @@ protected:
     yy::location location_;
     int value_;
 public:
+    int calc() override;
+    void dump() const override;
+
     expression(yy::location loc, int val = 0) : location_(loc), value_(val) {}
 };
 
@@ -101,29 +111,35 @@ class identificator_expression final : public expression
 {
 private:
     std::string name_;
+    scope* scope_;
 public:
     int calc() override;
     void dump() const override;
 
-    identificator_expression(yy::location loc, const std::string& name) : expression(loc), name_(name) {}
+    identificator_expression(yy::location loc, const std::string& name, scope* scope) : expression(loc), name_(name), scope_(scope) {}
 
     const std::string& get_name() const noexcept
     {
         return name_;
+    }
+
+    void set_value(int val) noexcept
+    {
+        scope_->set_value(name_, val);
     }
 };
 
 class binary_op_expression final : public expression
 {
 private:
-    INode* lhs_;
+    expression* lhs_;
     BinOps operator_;
-    INode* rhs_;
+    expression* rhs_;
 public:
     int calc() override;
     void dump() const override;
 
-    binary_op_expression(yy::location loc, INode* lhs, BinOps oper, INode* rhs) : expression(loc), 
+    binary_op_expression(yy::location loc, expression* lhs, BinOps oper, expression* rhs) : expression(loc), 
         lhs_(lhs), operator_(oper), rhs_(rhs) {}
 };
 

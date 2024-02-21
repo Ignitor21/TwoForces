@@ -58,8 +58,6 @@
 %nterm <output_statement*> output
 %nterm <expression*> lval
 %nterm <expression*> expr term fact
-%nterm <expression*> if
-%nterm <expression*> while
 
 %right "=";
 %left "+" "-";
@@ -73,7 +71,7 @@ program: stmts { abs_syntax_tree.execute(); }
 
 stmts: 
   %empty      {}  
-| stmts stmt  { abs_syntax_tree.add_action($1); }
+| stmts stmt  { abs_syntax_tree.add_action($2); }
 | stmts scope { std::cout << "New scope!\n" << "\n"; }
 ;
 
@@ -87,7 +85,7 @@ assignment:
 ;
 
 lval:
-    ID { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1)); } 
+    ID { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); } 
 ;
 
 output:
@@ -107,8 +105,8 @@ term:
 ;
 
 fact:
-  NUMBER       { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));       }
-| ID           { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1)); }
+  NUMBER       { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));        }
+| ID           { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); }
 | "?"         
   {
   /*

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Node.hxx"
-
+#include <memory>
 /*TO-DO:
  -rewrite with unique pointers
 */
@@ -14,20 +14,26 @@ class ast
 {
 private:
     scope global_scope_;
-    scope* current_scope_;
-    std::vector<INode> nodes_;
+    std::vector<std::unique_ptr<INode>> nodes_;
 public:
-    ast() : global_scope_{}, current_scope_(&global_scope_), nodes_{} {}
+    scope* current_scope_;
+public:
+
+    ast() : global_scope_{}, nodes_{}, current_scope_(&global_scope_) {}
     
     void execute()
     {
         global_scope_.calc();
         return;
     }
-
-    INode* create_node(INode&& node)
+    
+    template <typename T>
+    T* create_node(T&& node)
     {
-         return &(nodes_.emplace_back(node));
+        auto ptr = std::make_unique<T>(node);
+        T* ret = ptr.get();
+        nodes_.emplace_back(std::move(ptr));
+        return ret;
     }
 
     void add_action(INode* node)

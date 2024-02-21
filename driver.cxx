@@ -2,8 +2,6 @@
 #include "lexer.hxx"
 #include "driver.hxx"
 
-yy::driver::driver() : trace_parsing_ (false), trace_scanning_ (false) {}
-
 void yy::driver::scan_begin()
 {
     yyset_debug(trace_scanning_);
@@ -28,7 +26,6 @@ int yy::driver::parse(const std::string& f)
     parser parser_obj(ast_, location_);
     parser_obj.set_debug_level(trace_parsing_);
     int res = parser_obj.parse();
-    ast_.execute();
     scan_end();
     return res;
 }

@@ -21,13 +21,13 @@ private:
   frontend::ast ast_;
   location location_;
   std::string file_;
-  bool trace_scanning_;
-  bool trace_parsing_;
+  bool trace_scanning_ = false;
+  bool trace_parsing_ = false;
 
   void scan_begin();
   void scan_end();
 public:
-  driver();
+  driver() = default;
   int parse (const std::string& f);
   void set_parse_debug_level(bool level);
   void set_scan_debug_level(bool level);
