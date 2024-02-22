@@ -2,9 +2,6 @@
 
 #include "Node.hxx"
 #include <memory>
-/*TO-DO:
- -rewrite with unique pointers
-*/
 
 namespace frontend
 {

@@ -50,6 +50,7 @@
 
 %token <std::string> ID
 %token <int> NUMBER
+
 %nterm program
 %nterm <scope*> stmts
 %nterm <scope*> scope
@@ -57,7 +58,7 @@
 %nterm <binary_op_expression*> assignment 
 %nterm <output_statement*> output
 %nterm <expression*> lval
-%nterm <expression*> expr term fact
+%nterm <expression*> expr
 
 %right "=";
 %left "+" "-";
@@ -93,22 +94,14 @@ output:
 ;
 
 expr:
-  expr "+" term { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::PLUS,  $3)); }
-| expr "-" term { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MINUS, $3)); } 
-| term          { $$ = $1; }
-;
-
-term:
-  term "*" fact { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MUL, $3)); }
-| term "/" fact { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::DIV, $3)); }
-| fact          { $$ = $1; }
-;
-
-fact:
-  NUMBER        { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));                                        }
+  expr "+" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::PLUS,  $3));                  }
+| expr "-" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MINUS, $3));                  } 
+| expr "*" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MUL,   $3));                  }
+| expr "/" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::DIV,   $3));                  }
+| NUMBER        { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));                                        }
 | ID            { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); }
 | "?"           { $$ = abs_syntax_tree.create_node(input_expression(@1));                                             }
-| "(" expr ")"  { $$ = $2; }
+| "(" expr ")"  { $$ = $2;                                                                                            }
 ;
 
 %%

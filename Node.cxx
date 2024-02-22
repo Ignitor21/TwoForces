@@ -1,3 +1,4 @@
+#include "parser.hxx"
 #include "Node.hxx"
 
 namespace frontend
@@ -111,15 +112,14 @@ int binary_op_expression::calc()
 
         if (!r_res)
         {
-            std::cerr << "Devision by zero: " << location_ << "\n";
-            throw std::runtime_error("Devision by zero");
+            throw yy::parser::syntax_error(location_, "Division by zero");
         }
 
         return l_res / r_res;
     }
 
     default:
-        std::cerr << "Unknown operator" << "\n";
+        throw yy::parser::syntax_error(location_, "Unknown binary operator");
         return 0;
         break;
     }

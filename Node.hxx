@@ -6,6 +6,13 @@
 
 #include "location.hh"
 
+/* TO-DO:
+- move methods implementation to cxx file
+- implement scopes, if and while
+- add logical operations
+- add id checking
+*/
+
 namespace frontend
 {
 
