@@ -81,21 +81,19 @@ class expression : public INode
 {
 protected:
     yy::location location_;
+public:
+    expression(yy::location loc) : location_(loc) {}
+};
+
+class number_expression final: public expression
+{
+private:
     int value_;
 public:
     int calc() override;
     void dump() const override;
 
-    expression(yy::location loc, int val = 0) : location_(loc), value_(val) {}
-};
-
-class number_expression final: public expression
-{
-public:
-    int calc() override;
-    void dump() const override;
-
-    number_expression(yy::location loc, int val) : expression(loc, val) {}
+    number_expression(yy::location loc, int val) : expression(loc), value_(val) {}
 };
 
 class input_expression final : public expression

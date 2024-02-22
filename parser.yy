@@ -85,36 +85,30 @@ assignment:
 ;
 
 lval:
-    ID { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); } 
+  ID            { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); } 
 ;
 
 output:
-  "print" expr { $$ = abs_syntax_tree.create_node(output_statement(@1, $2)); }
+  "print" expr  { $$ = abs_syntax_tree.create_node(output_statement(@1, $2)); }
 ;
 
 expr:
-  expr "+" term { /* $$ = $1 + $3;*/ }
-| expr "-" term { /* $$ = $1 - $3;*/ }
-| term          { $$ = $1;           }
+  expr "+" term { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::PLUS,  $3)); }
+| expr "-" term { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MINUS, $3)); } 
+| term          { $$ = $1; }
 ;
 
 term:
-  term "*" fact { /* $$ = $1 * $3; */}
-| term "/" fact {/* $$ = $1 / $3; */}
-| fact          { $$ = $1;          }
+  term "*" fact { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MUL, $3)); }
+| term "/" fact { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::DIV, $3)); }
+| fact          { $$ = $1; }
 ;
 
 fact:
-  NUMBER       { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));        }
-| ID           { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); }
-| "?"         
-  {
-  /*
-    int n;
-    std::cin >> n;
-    $$ = n; */
-  }
-| "(" expr ")" { $$ = $2; }
+  NUMBER        { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));                                        }
+| ID            { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); }
+| "?"           { $$ = abs_syntax_tree.create_node(input_expression(@1));                                             }
+| "(" expr ")"  { $$ = $2; }
 ;
 
 %%

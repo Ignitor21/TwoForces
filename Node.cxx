@@ -15,7 +15,6 @@ void output_statement::dump() const
     return;
 }
 
-
 int scope::calc()
 {
     for (auto& action: actions_)
@@ -34,18 +33,6 @@ void scope::dump() const
     return;
 }
 
-int expression::calc()
-{
-    return value_;
-}
-
-void expression::dump() const
-{
-    std::cout << "Expression: " << location_ << "\n";
-
-    return;
-}
-
 int number_expression::calc()
 {
     return value_;
@@ -58,6 +45,19 @@ void number_expression::dump() const
     return;
 }
 
+int input_expression::calc()
+{
+    int tmp{};
+    std::cin >> tmp;
+    return tmp;
+}
+
+void input_expression::dump() const
+{
+    std::cout << "Input: " << location_ << "\n";
+
+    return;
+}
 int identificator_expression::calc()
 {
     return scope_->get_value(name_);
@@ -81,6 +81,41 @@ int binary_op_expression::calc()
         tmp->set_value(ret);
         return ret;
         break;
+    }
+
+    case BinOps::PLUS:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res + r_res;
+    }
+
+    case BinOps::MINUS:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res - r_res;
+    }
+
+    case BinOps::MUL:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res * r_res;
+    }
+
+    case BinOps::DIV:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+
+        if (!r_res)
+        {
+            std::cerr << "Devision by zero: " << location_ << "\n";
+            throw std::runtime_error("Devision by zero");
+        }
+
+        return l_res / r_res;
     }
 
     default:
