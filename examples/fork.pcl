@@ -1,0 +1,13 @@
+a = 1;
+
+if (a)
+{
+    print a;
+}
+
+if (0)
+{
+    print(2);
+}
+
+print(3);

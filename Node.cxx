@@ -18,6 +18,9 @@ void output_statement::dump() const
 
 int scope::calc()
 {
+    if (prev_)
+        symtab_ = prev_->symtab_;
+
     for (auto& action: actions_)
         action->calc();
 
@@ -31,6 +34,20 @@ void scope::dump() const
     for (auto& action: actions_)
         action->dump();
     
+    return;
+}
+
+int if_statement::calc()
+{
+    if(condition_->calc())
+        body_->calc();
+        
+    return 0;
+}
+
+void if_statement::dump() const
+{
+    std::cout << "If statement: " << location_ << "\n";
     return;
 }
 

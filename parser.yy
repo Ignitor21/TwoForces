@@ -54,9 +54,11 @@
 %nterm program
 %nterm <scope*> stmts
 %nterm <scope*> scope
+%nterm <scope*> right_brace
 %nterm <INode*> stmt
 %nterm <binary_op_expression*> assignment 
 %nterm <output_statement*> output
+%nterm <if_statement*> fork
 %nterm <expression*> lval
 %nterm <expression*> expr
 
@@ -64,7 +66,7 @@
 %left "+" "-";
 %left "*" "/";
 
-%printer { yyo << $$;} <*>;
+%printer { yyo << $$; } <*>;
 
 %%
 
@@ -79,6 +81,7 @@ stmts:
 stmt:
   assignment ";" { $$ = $1; }
 | output     ";" { $$ = $1; }
+| fork           { $$ = $1; } 
 ;
 
 assignment:
@@ -92,6 +95,22 @@ lval:
 output:
   "print" expr  { $$ = abs_syntax_tree.create_node(output_statement(@1, $2)); }
 ;
+
+fork:
+  "if" "(" expr ")" scope { $$ = abs_syntax_tree.create_node(if_statement(@1, $3, $5)); }
+;
+
+scope:
+    left_brace stmts right_brace { $$ = $3; }
+;    
+
+left_brace:
+  LBRACE { abs_syntax_tree.change_scope(); } 
+;
+
+right_brace:
+    RBRACE { $$ = abs_syntax_tree.current_scope_; abs_syntax_tree.reset_scope(); }
+    
 
 expr:
   expr "+" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::PLUS,  $3));                  }

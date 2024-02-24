@@ -38,7 +38,17 @@ public:
         current_scope_->add_action(node);
         return;
     }
-};
 
+    void change_scope()
+    {
+        current_scope_ = create_node(scope(current_scope_));
+    }
+
+    void reset_scope()
+    {
+        current_scope_ = current_scope_->reset_scope();
+    }
+
+};
 
 }

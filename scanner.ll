@@ -34,10 +34,13 @@ NUMBER   (0|[1-9][0-9]*)
 "/"        return yy::parser::make_DIV(loc);
 "("        return yy::parser::make_LPAREN(loc);
 ")"        return yy::parser::make_RPAREN(loc);
+"{"        return yy::parser::make_LBRACE(loc);
+"}"        return yy::parser::make_RBRACE(loc);
 ";"        return yy::parser::make_SCOLON(loc);
 "="        return yy::parser::make_ASGN(loc);
 "print"    return yy::parser::make_PRINT(loc);
 "?"        return yy::parser::make_INPUT(loc);
+"if"       return yy::parser::make_IF(loc);
 
 {NUMBER}   return make_NUMBER(yytext, loc);
 {ID}       return yy::parser::make_ID(yytext, loc);

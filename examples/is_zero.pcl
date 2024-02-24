@@ -1,0 +1,6 @@
+non_zero = ?;
+
+if (non_zero)
+{
+    print non_zero;
+}

@@ -8,9 +8,10 @@
 
 /* TO-DO:
 - move methods implementation to cxx file
-- implement scopes, if and while
+- implement while
 - add logical operations
 - add id checking
+- add template specialisation for binary operations
 */
 
 namespace frontend
@@ -38,7 +39,6 @@ protected:
     yy::location location_;
 public:
     statement(yy::location loc) : location_(loc) {}
-
 };
 
 class expression;
@@ -65,7 +65,7 @@ public:
     void dump() const override;
     
     scope() = default;
-    scope(scope* other) : actions_{}, symtab_(other->symtab_), prev_(other) {}
+    scope(scope* other) : actions_{}, symtab_{}, prev_{other} {}
 
     void set_value(const std::string& name, int value)
     {
@@ -81,7 +81,25 @@ public:
     void add_action(INode* node)
     {
         actions_.push_back(node);
+        return;
     }
+
+    scope* reset_scope()
+    {
+        return prev_;
+    }
+};
+
+class if_statement final : public statement
+{
+private:
+    expression* condition_;
+    scope* body_;
+public:
+    int calc() override;
+    void dump() const override;
+
+    if_statement(yy::location loc, expression* cond, scope* body) : statement(loc), condition_(cond), body_(body) {}
 };
 
 class expression : public INode
@@ -147,5 +165,7 @@ public:
     binary_op_expression(yy::location loc, expression* lhs, BinOps oper, expression* rhs) : expression(loc), 
         lhs_(lhs), operator_(oper), rhs_(rhs) {}
 };
+
+
 
 }
