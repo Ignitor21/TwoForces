@@ -14,7 +14,6 @@
     #include <unordered_map>
     #include "ast.hxx"
     namespace frontend { class ast; }
-    
     using namespace frontend;
 }
 
@@ -59,7 +58,8 @@
 %nterm <binary_op_expression*> assignment 
 %nterm <output_statement*> output
 %nterm <if_statement*> fork
-%nterm <expression*> lval
+%nterm <while_statement*> loop
+%nterm <identificator_expression*> lval
 %nterm <expression*> expr
 
 %right "=";
@@ -75,13 +75,14 @@ program: stmts { abs_syntax_tree.execute(); }
 stmts: 
   %empty      {}  
 | stmts stmt  { abs_syntax_tree.add_action($2); }
-| stmts scope { std::cout << "New scope!\n" << "\n"; }
+| stmts scope { abs_syntax_tree.add_action($2); }
 ;
 
 stmt:
   assignment ";" { $$ = $1; }
 | output     ";" { $$ = $1; }
-| fork           { $$ = $1; } 
+| fork           { $$ = $1; }
+| loop           { $$ = $1; }
 ;
 
 assignment:
@@ -89,7 +90,7 @@ assignment:
 ;
 
 lval:
-  ID            { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); } 
+  ID            { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1)); } 
 ;
 
 output:
@@ -100,25 +101,27 @@ fork:
   "if" "(" expr ")" scope { $$ = abs_syntax_tree.create_node(if_statement(@1, $3, $5)); }
 ;
 
+loop:
+  "while" "(" expr ")" scope { $$ = abs_syntax_tree.create_node(while_statement(@1, $3, $5)); }
+
 scope:
     left_brace stmts right_brace { $$ = $3; }
 ;    
 
 left_brace:
-  LBRACE { abs_syntax_tree.change_scope(); } 
+  LBRACE { abs_syntax_tree.current_scope_ = abs_syntax_tree.create_node(scope(abs_syntax_tree.current_scope_)); } 
 ;
 
 right_brace:
     RBRACE { $$ = abs_syntax_tree.current_scope_; abs_syntax_tree.reset_scope(); }
     
-
 expr:
   expr "+" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::PLUS,  $3));                  }
 | expr "-" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MINUS, $3));                  } 
 | expr "*" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MUL,   $3));                  }
 | expr "/" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::DIV,   $3));                  }
 | NUMBER        { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));                                        }
-| ID            { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1, abs_syntax_tree.current_scope_)); }
+| ID            { $$ = abs_syntax_tree.get_access(@1, $1);                                                                }
 | "?"           { $$ = abs_syntax_tree.create_node(input_expression(@1));                                             }
 | "(" expr ")"  { $$ = $2;                                                                                            }
 ;

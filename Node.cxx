@@ -1,8 +1,12 @@
 #include "parser.hxx"
-#include "Node.hxx"
 
 namespace frontend
 {
+
+yy::location expression::get_location() const
+{
+    return location_;
+}
 
 int output_statement::calc()
 {
@@ -18,9 +22,6 @@ void output_statement::dump() const
 
 int scope::calc()
 {
-    if (prev_)
-        symtab_ = prev_->symtab_;
-
     for (auto& action: actions_)
         action->calc();
 
@@ -37,6 +38,46 @@ void scope::dump() const
     return;
 }
 
+identificator_expression* scope::contains(const std::string& name)
+{
+    auto it = symtab_.find(name);
+
+    if (it != symtab_.end())
+        return (*it).second;
+    else
+        return nullptr;
+
+}
+
+void scope::add_id(const std::string& name, identificator_expression* node)
+{
+    symtab_[name] = node;
+}
+
+void scope::set_value(const std::string& name, int value)
+{
+    symtab_[name]->set_value(value);
+    return;
+}
+
+identificator_expression* scope::get_access(const yy::location& loc, const std::string& name)
+{
+    if (!symtab_.contains(name))
+        throw yy::parser::syntax_error(loc, name + " is undeclared!");
+    return symtab_[name];
+}
+
+void scope::add_action(INode* node)
+{
+    actions_.push_back(node);
+    return;
+}
+
+scope* scope::reset_scope()
+{
+    return prev_;
+}
+
 int if_statement::calc()
 {
     if(condition_->calc())
@@ -48,6 +89,20 @@ int if_statement::calc()
 void if_statement::dump() const
 {
     std::cout << "If statement: " << location_ << "\n";
+    return;
+}
+
+int while_statement::calc()
+{
+    while(condition_->calc())
+        body_->calc();
+ 
+    return 0;
+}
+
+void while_statement::dump() const
+{
+    std::cout << "While statement: " << location_ << "\n";
     return;
 }
 
@@ -78,13 +133,23 @@ void input_expression::dump() const
 }
 int identificator_expression::calc()
 {
-    return scope_->get_value(name_);
+    return value_;
 }
 
 void identificator_expression::dump() const
 {
     std::cout << "Identificator: " << location_ << "\n";
     return;
+}
+
+const std::string& identificator_expression::get_name() const
+{
+    return name_;
+}
+
+void identificator_expression::set_value(int val) noexcept
+{
+    value_ = val;
 }
 
 int binary_op_expression::calc()

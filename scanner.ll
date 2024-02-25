@@ -41,6 +41,7 @@ NUMBER   (0|[1-9][0-9]*)
 "print"    return yy::parser::make_PRINT(loc);
 "?"        return yy::parser::make_INPUT(loc);
 "if"       return yy::parser::make_IF(loc);
+"while"    return yy::parser::make_WHILE(loc);
 
 {NUMBER}   return make_NUMBER(yytext, loc);
 {ID}       return yy::parser::make_ID(yytext, loc);

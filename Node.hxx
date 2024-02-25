@@ -5,12 +5,9 @@
 #include <unordered_map>
 
 #include "location.hh"
-
 /* TO-DO:
 - move methods implementation to cxx file
-- implement while
 - add logical operations
-- add id checking
 - add template specialisation for binary operations
 */
 
@@ -54,40 +51,48 @@ public:
     output_statement(yy::location loc, expression* expr) : statement(loc), expression_(expr) {}
 };
 
+class expression : public INode
+{
+protected:
+    yy::location location_;
+public:
+    expression(yy::location loc) : location_(loc) {}
+    yy::location get_location() const;
+};
+
+class identificator_expression final : public expression
+{
+private:
+    std::string name_;
+    int value_;
+public:
+    int calc() override;
+    void dump() const override;
+
+    identificator_expression(yy::location loc, const std::string& name, int val = 0) : expression(loc), name_(name), value_(val) {}
+    const std::string& get_name() const;
+    void set_value(int val) noexcept;
+};
+
 class scope final : public INode
 {
 private:
     std::vector<INode*> actions_;
-    std::unordered_map<std::string, int> symtab_;
+    std::unordered_map<std::string, identificator_expression*> symtab_;
     scope *prev_;
 public:
     int calc() override;
     void dump() const override;
     
     scope() = default;
-    scope(scope* other) : actions_{}, symtab_{}, prev_{other} {}
-
-    void set_value(const std::string& name, int value)
-    {
-        symtab_[name] = value;
-        return;
-    }
-
-    int get_value(const std::string& name)
-    {
-        return symtab_[name];
-    }
-
-    void add_action(INode* node)
-    {
-        actions_.push_back(node);
-        return;
-    }
-
-    scope* reset_scope()
-    {
-        return prev_;
-    }
+    scope(scope* other) : actions_{}, symtab_{other->symtab_}, prev_{other} {}
+    
+    void add_id(const std::string& name, identificator_expression* node);
+    identificator_expression* contains(const std::string& name);
+    void set_value(const std::string& name, int value); 
+    identificator_expression* get_access(const yy::location& loc, const std::string& name);
+    void add_action(INode* node);
+    scope* reset_scope();
 };
 
 class if_statement final : public statement
@@ -102,12 +107,16 @@ public:
     if_statement(yy::location loc, expression* cond, scope* body) : statement(loc), condition_(cond), body_(body) {}
 };
 
-class expression : public INode
+class while_statement final : public statement
 {
-protected:
-    yy::location location_;
+private:
+    expression* condition_;
+    scope* body_;
 public:
-    expression(yy::location loc) : location_(loc) {}
+    int calc() override;
+    void dump() const override;
+
+    while_statement(yy::location loc, expression* cond, scope* body) : statement(loc), condition_(cond), body_(body) {}
 };
 
 class number_expression final: public expression
@@ -128,28 +137,6 @@ public:
     void dump() const override;
 
     input_expression(yy::location loc) : expression(loc) {}
-};
-
-class identificator_expression final : public expression
-{
-private:
-    std::string name_;
-    scope* scope_;
-public:
-    int calc() override;
-    void dump() const override;
-
-    identificator_expression(yy::location loc, const std::string& name, scope* scope) : expression(loc), name_(name), scope_(scope) {}
-
-    const std::string& get_name() const noexcept
-    {
-        return name_;
-    }
-
-    void set_value(int val) noexcept
-    {
-        scope_->set_value(name_, val);
-    }
 };
 
 class binary_op_expression final : public expression

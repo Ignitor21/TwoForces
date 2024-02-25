@@ -1,0 +1,11 @@
+foo = 42;
+
+{
+    print foo;
+    bar = 228;
+    print bar;
+    foo = foo + 1;
+}
+
+print bar;
+print foo;
