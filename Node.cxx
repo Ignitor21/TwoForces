@@ -157,15 +157,6 @@ int binary_op_expression::calc()
     switch(operator_)
     {
 
-    case BinOps::ASGN:
-    {
-        int ret = rhs_->calc();
-        identificator_expression* tmp = static_cast<identificator_expression*>(lhs_);
-        tmp->set_value(ret);
-        return ret;
-        break;
-    }
-
     case BinOps::PLUS:
     {
         int l_res = lhs_->calc();
@@ -198,6 +189,84 @@ int binary_op_expression::calc()
         }
 
         return l_res / r_res;
+    }
+
+    case BinOps::MOD:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+
+        if (!r_res)
+        {
+            throw yy::parser::syntax_error(location_, "Division by zero");
+        }
+
+        return l_res % r_res;
+    }
+
+    case BinOps::ASGN:
+    {
+        int ret = rhs_->calc();
+        identificator_expression* tmp = static_cast<identificator_expression*>(lhs_);
+        tmp->set_value(ret);
+        return ret;
+        break;
+    }
+
+    case BinOps::LESS:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res < r_res;
+    }
+
+    case BinOps::GREATER:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res > r_res;
+    }
+
+    case BinOps::EQ:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res == r_res;
+    }
+
+    case BinOps::NEQ:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res != r_res;
+    }
+
+    case BinOps::LESSEQ:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res <= r_res;
+    }
+
+    case BinOps::GREATEREQ:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res >= r_res;
+    }
+
+    case BinOps::AND:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res && r_res;
+    }
+
+    case BinOps::OR:
+    {
+        int l_res = lhs_->calc();
+        int r_res = rhs_->calc();
+        return l_res || r_res;
     }
 
     default:

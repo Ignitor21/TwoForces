@@ -5,10 +5,10 @@
 #include <unordered_map>
 
 #include "location.hh"
+
 /* TO-DO:
-- move methods implementation to cxx file
-- add logical operations
 - add template specialisation for binary operations
+- add unary operations
 */
 
 namespace frontend
@@ -20,7 +20,18 @@ enum class BinOps
     MINUS,
     MUL,
     DIV,
-    ASGN
+    MOD,
+
+    ASGN,
+
+    LESS,
+    GREATER,
+    EQ,
+    NEQ,
+    LESSEQ,
+    GREATEREQ,
+    AND,
+    OR
 };
 
 struct INode
@@ -152,7 +163,5 @@ public:
     binary_op_expression(yy::location loc, expression* lhs, BinOps oper, expression* rhs) : expression(loc), 
         lhs_(lhs), operator_(oper), rhs_(rhs) {}
 };
-
-
 
 }

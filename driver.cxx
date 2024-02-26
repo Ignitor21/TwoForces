@@ -25,19 +25,7 @@ int yy::driver::parse(const std::string& f)
     scan_begin();
     parser parser_obj(ast_, location_);
     parser_obj.set_debug_level(trace_parsing_);
-
-    int res{};
-    try 
-    {
-        res = parser_obj.parse();
-    }
-
-    catch (const yy::parser::syntax_error& e)
-    {
-        std::cerr << e.what(); 
-        res = -1;
-    }
-
+    int res = parser_obj.parse();
     scan_end();
     return res;
 }

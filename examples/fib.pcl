@@ -1,0 +1,15 @@
+n = ?;
+i = 1;
+a = 1;
+b = 0;
+k = 0;
+
+print 0;
+while (i < n)
+{
+    k = a + b;
+    a = b;
+    b = k;
+    print k;
+    i = i + 1;
+}

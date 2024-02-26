@@ -32,6 +32,7 @@ NUMBER   (0|[1-9][0-9]*)
 "+"        return yy::parser::make_PLUS(loc);
 "*"        return yy::parser::make_MUL(loc);
 "/"        return yy::parser::make_DIV(loc);
+"%"        return yy::parser::make_MOD(loc);
 "("        return yy::parser::make_LPAREN(loc);
 ")"        return yy::parser::make_RPAREN(loc);
 "{"        return yy::parser::make_LBRACE(loc);
@@ -43,6 +44,16 @@ NUMBER   (0|[1-9][0-9]*)
 "if"       return yy::parser::make_IF(loc);
 "while"    return yy::parser::make_WHILE(loc);
 
+"<"        return yy::parser::make_LESS(loc);
+">"        return yy::parser::make_GREATER(loc);
+"=="       return yy::parser::make_EQ(loc);
+"!="       return yy::parser::make_NEQ(loc);
+"<="       return yy::parser::make_LESSEQ(loc);
+">="       return yy::parser::make_GREATEREQ(loc);
+
+"&&"       return yy::parser::make_AND(loc);
+"||"       return yy::parser::make_OR(loc);
+
 {NUMBER}   return make_NUMBER(yytext, loc);
 {ID}       return yy::parser::make_ID(yytext, loc);
 <<EOF>>    return yy::parser::make_END(loc);
@@ -52,7 +63,7 @@ NUMBER   (0|[1-9][0-9]*)
 
 yy::parser::symbol_type make_NUMBER(const std::string &s, const yy::parser::location_type& loc)
 {
-  long n = stol(s);
+  long n = std::stol(s);
 
   if (!(std::numeric_limits<int>::min() <= n && n <= std::numeric_limits<int>::max()))
     throw yy::parser::syntax_error(loc, "integer is out of range: " + s);
