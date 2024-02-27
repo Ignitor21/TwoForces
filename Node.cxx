@@ -284,4 +284,42 @@ void binary_op_expression::dump() const
     return;
 }
 
+int unary_op_expression::calc()
+{
+    switch(operator_)
+    {
+
+    case UnOps::NOT:
+    {
+        int res = expression_->calc();
+        return !res;
+    }
+
+    case UnOps::UPLUS:
+    {
+        int res = expression_->calc();
+        return +res;
+    }
+
+    case UnOps::UMINUS:
+    {
+        int res = expression_->calc();
+        return -res;
+    }
+
+    default:
+        throw yy::parser::syntax_error(location_, "Unknown unary operator");
+        return 0;
+        break;
+    }
+
+    return 0;
+}
+
+void unary_op_expression::dump() const
+{
+    std::cout << "Unary expression: " << location_ << "\n";
+    return;
+}
+
 }

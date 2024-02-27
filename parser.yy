@@ -55,6 +55,7 @@
   GREATEREQ ">="
   AND       "&&"
   OR        "||"
+  NOT       "!"
 ;
 
 %token <std::string> ID
@@ -70,7 +71,7 @@
 %nterm <if_statement*> fork
 %nterm <while_statement*> loop
 %nterm <identificator_expression*> lval
-%nterm <expression*> expr
+%nterm <expression*> expr term
 
 %right "=";
 %left "||";
@@ -78,7 +79,8 @@
 %nonassoc "==" "!=";
 %nonassoc "<" "<=" ">" ">="
 %left "+" "-";
-%left "*" "/" "%";
+%left "*" "/" "%"
+%right "!"
 
 %printer { yyo << $$; } <*>;
 
@@ -93,10 +95,11 @@ stmts:
 ;
 
 stmt:
-  assignment ";" { $$ = $1; }
-| output     ";" { $$ = $1; }
-| fork           { $$ = $1; }
-| loop           { $$ = $1; }
+  ";"            { $$ = nullptr; }  
+| assignment ";" { $$ = $1;      }
+| output     ";" { $$ = $1;      }
+| fork           { $$ = $1;      }
+| loop           { $$ = $1;      }
 ;
 
 assignment:
@@ -139,15 +142,21 @@ expr:
 | expr "<=" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::LESSEQ,    $3));              }
 | expr ">"  expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::GREATER,   $3));              }
 | expr ">=" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::GREATEREQ, $3));              }
-| expr "==" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::EQ, $3));                     }
+| expr "==" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::EQ,  $3));                    }
 | expr "!=" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::NEQ, $3));                    }
 | expr "&&" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::AND, $3));                    }
-| expr "||" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::OR, $3));                     }
-| NUMBER         { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));                                        }
+| expr "||" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::OR,  $3));                    }
+| "!" expr       { $$ = abs_syntax_tree.create_node(unary_op_expression(@1, UnOps::NOT,    $2));                       }
+| "+" term       { $$ = abs_syntax_tree.create_node(unary_op_expression(@1, UnOps::UPLUS,  $2));                       }
+| "-" term       { $$ = abs_syntax_tree.create_node(unary_op_expression(@1, UnOps::UMINUS, $2));                       }
+| term           { $$ = $1;                                                                                            }
+;
+
+term:
+  NUMBER         { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));                                        }
 | ID             { $$ = abs_syntax_tree.get_access(@1, $1);                                                            }
 | "?"            { $$ = abs_syntax_tree.create_node(input_expression(@1));                                             }
 | "(" expr ")"   { $$ = $2;                                                                                            }
-;
 
 %%
 

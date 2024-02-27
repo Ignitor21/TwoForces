@@ -53,6 +53,7 @@ NUMBER   (0|[1-9][0-9]*)
 
 "&&"       return yy::parser::make_AND(loc);
 "||"       return yy::parser::make_OR(loc);
+"!"        return yy::parser::make_NOT(loc);
 
 {NUMBER}   return make_NUMBER(yytext, loc);
 {ID}       return yy::parser::make_ID(yytext, loc);

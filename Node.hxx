@@ -8,7 +8,6 @@
 
 /* TO-DO:
 - add template specialisation for binary operations
-- add unary operations
 */
 
 namespace frontend
@@ -32,6 +31,13 @@ enum class BinOps
     GREATEREQ,
     AND,
     OR
+};
+
+enum class UnOps
+{
+    UPLUS,
+    UMINUS,
+    NOT
 };
 
 struct INode
@@ -162,6 +168,19 @@ public:
 
     binary_op_expression(yy::location loc, expression* lhs, BinOps oper, expression* rhs) : expression(loc), 
         lhs_(lhs), operator_(oper), rhs_(rhs) {}
+};
+
+class unary_op_expression final : public expression
+{
+private:
+    UnOps operator_;
+    expression* expression_;
+public:
+    int calc() override;
+    void dump() const override;
+
+    unary_op_expression(yy::location loc, UnOps oper, expression* expr) : expression(loc), 
+        operator_(oper), expression_(expr) {}
 };
 
 }

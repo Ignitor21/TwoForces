@@ -21,7 +21,6 @@ public:
     void execute()
     {
         global_scope_.calc();
-        return;
     }
     
     template <typename T>
@@ -41,7 +40,6 @@ public:
         if (tmp)
             return tmp;
         
-
         auto ptr = std::make_unique<identificator_expression>(node);
         identificator_expression* ret = ptr.get();
         current_scope_->add_id(name, ret);
@@ -51,8 +49,8 @@ public:
 
     void add_action(INode* node)
     {
-        current_scope_->add_action(node);
-        return;
+        if (node)
+            current_scope_->add_action(node);
     }
 
     identificator_expression* get_access(const yy::location& loc, const std::string& name) const
