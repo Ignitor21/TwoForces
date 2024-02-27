@@ -10,12 +10,12 @@ find_package(FLEX REQUIRED)
 
 set(CMAKE_CXX_FLAGS_DEBUG "-Wall -g -O0")
 
-flex_target(lexer  scanner.ll  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cxx DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/lexer.hxx)
-bison_target(parser parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cxx)
+flex_target(lexer  parsing/scanner.ll  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cxx DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/lexer.hxx)
+bison_target(parser parsing/parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cxx)
 
 add_flex_bison_dependency(lexer parser)
 
-add_executable(${PROJECT_NAME} main.cxx driver.cxx Node.cxx ${BISON_parser_OUTPUTS} ${FLEX_lexer_OUTPUTS})
+add_executable(${PROJECT_NAME} main.cxx driver/driver.cxx ast/Node.cxx ${BISON_parser_OUTPUTS} ${FLEX_lexer_OUTPUTS})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ast driver parsing)

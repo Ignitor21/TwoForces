@@ -24,7 +24,7 @@ private:
   bool trace_scanning_ = false;
   bool trace_parsing_ = false;
 
-  void scan_begin();
+  int scan_begin();
   void scan_end();
 public:
   driver() = default;

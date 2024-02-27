@@ -2,14 +2,16 @@
 #include "lexer.hxx"
 #include "driver.hxx"
 
-void yy::driver::scan_begin()
+int yy::driver::scan_begin()
 {
     yyset_debug(trace_scanning_);
     if (!(yyin = fopen(file_.c_str(), "r")))
     {
         std::cerr << "cannot open " << file_ << '\n';
-        exit (EXIT_FAILURE);
+        return 1;
     }
+
+    return 0;
 }
 
 void yy::driver::scan_end()
@@ -22,7 +24,8 @@ int yy::driver::parse(const std::string& f)
 {
     file_ = f;
     location_.initialize(&file_);
-    scan_begin();
+    if (scan_begin())
+        return 1;
     parser parser_obj(ast_, location_);
     parser_obj.set_debug_level(trace_parsing_);
     int res = parser_obj.parse();
