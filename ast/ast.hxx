@@ -49,8 +49,7 @@ public:
 
     void add_action(INode* node)
     {
-        if (node)
-            current_scope_->add_action(node);
+        current_scope_->add_action(node);
     }
 
     identificator_expression* get_access(const yy::location& loc, const std::string& name) const

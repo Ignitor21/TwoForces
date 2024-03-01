@@ -13,7 +13,6 @@
     #include <string>
     #include <unordered_map>
     #include "ast.hxx"
-    namespace frontend { class ast; }
     using namespace frontend;
 }
 
@@ -90,16 +89,16 @@ program: stmts { abs_syntax_tree.execute(); }
 
 stmts: 
   %empty      {}  
+| stmts ";"   {}
 | stmts stmt  { abs_syntax_tree.add_action($2); }
 | stmts scope { abs_syntax_tree.add_action($2); }
 ;
 
-stmt:
-  ";"            { $$ = nullptr; }  
-| assignment ";" { $$ = $1;      }
-| output     ";" { $$ = $1;      }
-| fork           { $$ = $1;      }
-| loop           { $$ = $1;      }
+stmt: 
+  assignment ";" { $$ = $1; }
+| output     ";" { $$ = $1; }
+| fork           { $$ = $1; }
+| loop           { $$ = $1; }
 ;
 
 assignment:
@@ -131,7 +130,8 @@ left_brace:
 
 right_brace:
   "}" { $$ = abs_syntax_tree.current_scope_; abs_syntax_tree.reset_scope(); }
-    
+;
+
 expr:
   expr "+"  expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::PLUS,      $3));              }
 | expr "-"  expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::MINUS,     $3));              } 
@@ -150,6 +150,7 @@ expr:
 | "+" term       { $$ = abs_syntax_tree.create_node(unary_op_expression(@1, UnOps::UPLUS,  $2));                       }
 | "-" term       { $$ = abs_syntax_tree.create_node(unary_op_expression(@1, UnOps::UMINUS, $2));                       }
 | term           { $$ = $1;                                                                                            }
+| assignment     { $$ = $1;                                                                                            }
 ;
 
 term:
