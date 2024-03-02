@@ -116,24 +116,24 @@ class if_statement final : public statement
 {
 private:
     expression* condition_;
-    scope* body_;
+    INode* body_;
 public:
     int calc() override;
     void dump() const override;
 
-    if_statement(yy::location loc, expression* cond, scope* body) : statement(loc), condition_(cond), body_(body) {}
+    if_statement(yy::location loc, expression* cond, INode* body) : statement(loc), condition_(cond), body_(body) {}
 };
 
 class while_statement final : public statement
 {
 private:
     expression* condition_;
-    scope* body_;
+    INode* body_;
 public:
     int calc() override;
     void dump() const override;
 
-    while_statement(yy::location loc, expression* cond, scope* body) : statement(loc), condition_(cond), body_(body) {}
+    while_statement(yy::location loc, expression* cond, INode* body) : statement(loc), condition_(cond), body_(body) {}
 };
 
 class number_expression final: public expression

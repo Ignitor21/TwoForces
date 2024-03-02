@@ -69,6 +69,7 @@
 %nterm <output_statement*> output
 %nterm <if_statement*> fork
 %nterm <while_statement*> loop
+%nterm <INode*> body
 %nterm <identificator_expression*> lval
 %nterm <expression*> expr term
 
@@ -114,11 +115,17 @@ output:
 ;
 
 fork:
-  "if" "(" expr ")" scope { $$ = abs_syntax_tree.create_node(if_statement(@1, $3, $5)); }
+  "if" "(" expr ")" body { $$ = abs_syntax_tree.create_node(if_statement(@1, $3, $5)); }
 ;
 
 loop:
-  "while" "(" expr ")" scope { $$ = abs_syntax_tree.create_node(while_statement(@1, $3, $5)); }
+  "while" "(" expr ")" body { $$ = abs_syntax_tree.create_node(while_statement(@1, $3, $5)); }
+;
+
+body:
+  scope { $$ = $1; }
+| stmt  { $$ = $1; } 
+;
 
 scope:
     left_brace stmts right_brace { $$ = $3; }

@@ -1,0 +1,10 @@
+a = 52;
+
+if (a > 0)
+    print a;
+
+a = 21;
+
+while (a)
+    print a = a - 1;
+
