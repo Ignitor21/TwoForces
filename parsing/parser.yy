@@ -42,6 +42,7 @@
   RBRACE    "}"
   SCOLON    ";"
   IF        "if"
+  ELSE      "else"
   WHILE     "while" 
   PRINT     "print"
   INPUT     "?"
@@ -72,6 +73,9 @@
 %nterm <INode*> body
 %nterm <identificator_expression*> lval
 %nterm <expression*> expr term
+
+%precedence ")"
+%precedence "else"
 
 %right "=";
 %left "||";
@@ -115,7 +119,8 @@ output:
 ;
 
 fork:
-  "if" "(" expr ")" body { $$ = abs_syntax_tree.create_node(if_statement(@1, $3, $5)); }
+  "if" "(" expr ")" body             { $$ = abs_syntax_tree.create_node(if_statement(@1, $3, $5));     }
+| "if" "(" expr ")" body "else" body { $$ = abs_syntax_tree.create_node(if_statement(@1, $3, $5, $7)); }
 ;
 
 loop:

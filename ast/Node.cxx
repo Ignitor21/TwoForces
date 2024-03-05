@@ -81,8 +81,10 @@ scope* scope::reset_scope()
 int if_statement::calc()
 {
     if(condition_->calc())
-        body_->calc();
-        
+        true_body_->calc();
+    else if (false_body_)
+        false_body_->calc();
+
     return 0;
 }
 

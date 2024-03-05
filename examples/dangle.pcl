@@ -1,0 +1,23 @@
+a = b = 21;
+
+if (a)
+    if (b)
+        print 228;
+    else
+        print -228;
+
+b = 0;
+
+if (a)
+    if (b)
+        print 228;
+    else
+        print -228;
+
+a = 0;
+
+if (a)
+    if (b)
+        print 228;
+    else
+        print -228;

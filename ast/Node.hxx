@@ -116,12 +116,13 @@ class if_statement final : public statement
 {
 private:
     expression* condition_;
-    INode* body_;
+    INode* true_body_;
+    INode* false_body_;
 public:
     int calc() override;
     void dump() const override;
 
-    if_statement(yy::location loc, expression* cond, INode* body) : statement(loc), condition_(cond), body_(body) {}
+    if_statement(yy::location loc, expression* cond, INode* tbody, INode* fbody = nullptr) : statement(loc), condition_(cond), true_body_(tbody), false_body_(fbody) {}
 };
 
 class while_statement final : public statement
