@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
 find_package(BISON REQUIRED)
-find_package(FLEX REQUIRED)
+find_package(FLEX  REQUIRED)
 
 set(CMAKE_CXX_FLAGS_DEBUG "-Wall -g -O0")
 

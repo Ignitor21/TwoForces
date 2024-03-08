@@ -11,9 +11,10 @@
   yy::parser::symbol_type make_NUMBER(const std::string &s, const yy::parser::location_type& loc);
 %}
 
-WS       [ \f\r\t\v]
-ID       [a-zA-Z][a-zA-Z_0-9]*
-NUMBER   (0|[1-9][0-9]*)
+WS      [ \f\r\t\v]
+ID      [a-zA-Z][a-zA-Z_0-9]*
+NUMBER  (0|[1-9][0-9]*)
+COMMENT [/][/].*
 
 %{
   #define YY_USER_ACTION loc.columns(yyleng);
@@ -26,7 +27,8 @@ NUMBER   (0|[1-9][0-9]*)
 %}
 
 {WS}+      loc.step();
-\n+        loc.lines(yyleng); loc.step();
+\n+        loc.lines(yyleng); loc.step(); 
+{COMMENT}  loc.step();  
 
 "-"        return yy::parser::make_MINUS(loc);
 "+"        return yy::parser::make_PLUS(loc);
