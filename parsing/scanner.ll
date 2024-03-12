@@ -14,7 +14,7 @@
 WS      [ \f\r\t\v]
 ID      [a-zA-Z][a-zA-Z_0-9]*
 NUMBER  (0|[1-9][0-9]*)
-COMMENT [/][/].*
+COMMENT [/][/][^\n]*[\n]
 
 %{
   #define YY_USER_ACTION loc.columns(yyleng);
@@ -28,7 +28,7 @@ COMMENT [/][/].*
 
 {WS}+      loc.step();
 \n+        loc.lines(yyleng); loc.step(); 
-{COMMENT}  loc.step();  
+{COMMENT}  loc.lines(); loc.step();  
 
 "-"        return yy::parser::make_MINUS(loc);
 "+"        return yy::parser::make_PLUS(loc);
