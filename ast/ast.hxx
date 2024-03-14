@@ -32,21 +32,6 @@ public:
         return ret;
     }
     
-    identificator_expression* create_node(identificator_expression&& node)
-    {
-        std::string name = node.get_name(); 
-        identificator_expression* tmp = current_scope_->contains(name); 
-
-        if (tmp)
-            return tmp;
-        
-        auto ptr = std::make_unique<identificator_expression>(node);
-        identificator_expression* ret = ptr.get();
-        current_scope_->add_id(name, ret);
-        nodes_.emplace_back(std::move(ptr));
-        return ret;
-    }
-
     void add_action(INode* node)
     {
         current_scope_->add_action(node);

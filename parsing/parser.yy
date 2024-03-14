@@ -107,11 +107,17 @@ stmt:
 ;
 
 assignment:
-  lval "=" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::ASGN, $3)); }
+  lval "=" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::ASGN, $3));
+                    abs_syntax_tree.current_scope_->add_id($1->get_name(), $1); }
 ;
 
 lval:
-  ID            { $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1)); } 
+  ID            { identificator_expression* ret = abs_syntax_tree.current_scope_->contains($1);
+
+                  if (ret)
+                      $$ =  ret;
+                  else
+                      $$ = abs_syntax_tree.create_node(identificator_expression(@1, $1)); } 
 ;
 
 output:
