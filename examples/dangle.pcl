@@ -4,7 +4,7 @@ if (a)
     if (b)
         print 1489;
     else
-        print 1489;
+        print -1489;
 
 b = 0;
 

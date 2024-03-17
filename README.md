@@ -14,3 +14,14 @@
 ```
 ## Code examples
 You can find source code examples in folder `examples`
+
+## Running program 
+```
+    ./ParaCL <file name>
+```
+
+You can also use these flags:
+
+* `-s` to enable scanning traces;
+
+* `-p` to enable parsing traces;

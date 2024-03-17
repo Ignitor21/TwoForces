@@ -3,6 +3,12 @@
 
 int main (int argc, char *argv[])
 {
+    if (argc < 2)
+    {
+        std::cerr << "Missing argument - name of file\n";
+        return -1;
+    }
+
     int res = 0;
     yy::driver drv;
 
@@ -12,8 +18,8 @@ int main (int argc, char *argv[])
             drv.set_parse_debug_level(true);
         else if (argv[i] == std::string ("-s"))
             drv.set_scan_debug_level(true);
-        else if (drv.parse(argv[i]))
-            res = 1;
+        else
+            res = drv.parse(argv[i]);
     }
 
     return res;

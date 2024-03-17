@@ -1,4 +1,3 @@
 a = //goida 123;
-1 + 2;
 
 print a;

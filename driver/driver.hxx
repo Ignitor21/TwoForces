@@ -27,10 +27,9 @@ private:
     int scan_begin();
     void scan_end();
 public:
-    driver() = default;
-    int parse (const std::string& f);
-    void set_parse_debug_level(bool level);
-    void set_scan_debug_level(bool level);
+    int parse(const std::string& f);
+    void set_parse_debug_level(bool level) noexcept;
+    void set_scan_debug_level(bool level) noexcept;
 };
 
 }

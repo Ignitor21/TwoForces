@@ -5,9 +5,10 @@
 int yy::driver::scan_begin()
 {
     yyset_debug(trace_scanning_);
+    
     if (!(yyin = fopen(file_.c_str(), "r")))
     {
-        std::cerr << "cannot open " << file_ << '\n';
+        std::cerr << "Cannot open " << file_ << "\n";
         return 1;
     }
 
@@ -33,12 +34,12 @@ int yy::driver::parse(const std::string& f)
     return res;
 }
 
-void yy::driver::set_scan_debug_level(bool level)
+void yy::driver::set_scan_debug_level(bool level) noexcept
 {
     trace_scanning_ = true;
 }
 
-void yy::driver::set_parse_debug_level(bool level)
+void yy::driver::set_parse_debug_level(bool level) noexcept
 {
     trace_parsing_ = true;
 }
