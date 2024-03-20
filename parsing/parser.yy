@@ -66,7 +66,7 @@
 %nterm <scope*> scope
 %nterm <scope*> right_brace
 %nterm <INode*> stmt
-%nterm <binary_op_expression*> assignment 
+%nterm <assignment_expression*> assignment 
 %nterm <output_statement*> output
 %nterm <if_statement*> fork
 %nterm <while_statement*> loop
@@ -107,12 +107,12 @@ stmt:
 ;
 
 assignment:
-  lval "=" expr { $$ = abs_syntax_tree.create_node(binary_op_expression(@2, $1, BinOps::ASGN, $3));
+  lval "=" expr { $$ = abs_syntax_tree.create_node(assignment_expression(@2, $1, $3));
                     abs_syntax_tree.current_scope_->add_id($1->get_name(), $1); }
 ;
 
 lval:
-  ID            { identificator_expression* ret = abs_syntax_tree.current_scope_->contains($1);
+  ID            { identificator_expression* ret = abs_syntax_tree.current_scope_->get($1);
 
                   if (ret)
                       $$ =  ret;

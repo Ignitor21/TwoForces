@@ -38,7 +38,7 @@ void scope::dump() const
     return;
 }
 
-identificator_expression* scope::contains(const std::string& name)
+identificator_expression* scope::get(const std::string& name) const
 {
     auto it = symtab_.find(name);
 
@@ -133,6 +133,21 @@ void input_expression::dump() const
 
     return;
 }
+
+int assignment_expression::calc()
+{
+    int ret = rhs_->calc();
+    lhs_->set_value(ret);
+    return ret;
+}
+
+void assignment_expression::dump() const
+{
+    std::cout << "Assignment: " << location_ << "\n";
+
+    return;
+}
+
 int identificator_expression::calc()
 {
     return value_;
@@ -156,124 +171,57 @@ void identificator_expression::set_value(int val) noexcept
 
 int binary_op_expression::calc()
 {
+    int l_res = lhs_->calc();
+    int r_res = rhs_->calc();
+
     switch(operator_)
     {
 
     case BinOps::PLUS:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res + r_res;
-    }
 
     case BinOps::MINUS:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res - r_res;
-    }
 
     case BinOps::MUL:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res * r_res;
-    }
 
     case BinOps::DIV:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
-
         if (!r_res)
-        {
             throw yy::parser::syntax_error(location_, "Division by zero");
-        }
-
         return l_res / r_res;
-    }
 
     case BinOps::MOD:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
-
         if (!r_res)
-        {
             throw yy::parser::syntax_error(location_, "Division by zero");
-        }
-
         return l_res % r_res;
-    }
-
-    case BinOps::ASGN:
-    {
-        int ret = rhs_->calc();
-        identificator_expression* tmp = static_cast<identificator_expression*>(lhs_);
-        tmp->set_value(ret);
-        return ret;
-        break;
-    }
 
     case BinOps::LESS:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res < r_res;
-    }
 
     case BinOps::GREATER:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res > r_res;
-    }
 
     case BinOps::EQ:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res == r_res;
-    }
 
     case BinOps::NEQ:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res != r_res;
-    }
 
     case BinOps::LESSEQ:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res <= r_res;
-    }
 
     case BinOps::GREATEREQ:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res >= r_res;
-    }
 
     case BinOps::AND:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res && r_res;
-    }
 
     case BinOps::OR:
-    {
-        int l_res = lhs_->calc();
-        int r_res = rhs_->calc();
         return l_res || r_res;
-    }
 
     default:
         throw yy::parser::syntax_error(location_, "Unknown binary operator");
-        return 0;
         break;
     }
 
@@ -288,30 +236,23 @@ void binary_op_expression::dump() const
 
 int unary_op_expression::calc()
 {
+        
+    int res = expression_->calc();
+
     switch(operator_)
     {
 
     case UnOps::NOT:
-    {
-        int res = expression_->calc();
         return !res;
-    }
 
     case UnOps::UPLUS:
-    {
-        int res = expression_->calc();
         return +res;
-    }
 
     case UnOps::UMINUS:
-    {
-        int res = expression_->calc();
         return -res;
-    }
 
     default:
         throw yy::parser::syntax_error(location_, "Unknown unary operator");
-        return 0;
         break;
     }
 

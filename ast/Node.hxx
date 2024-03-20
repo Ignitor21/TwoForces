@@ -21,8 +21,6 @@ enum class BinOps
     DIV,
     MOD,
 
-    ASGN,
-
     LESS,
     GREATER,
     EQ,
@@ -105,7 +103,7 @@ public:
     scope(scope* other) : actions_{}, symtab_{other->symtab_}, prev_{other} {}
     
     void add_id(const std::string& name, identificator_expression* node);
-    identificator_expression* contains(const std::string& name);
+    identificator_expression* get(const std::string& name) const;
     void set_value(const std::string& name, int value); 
     identificator_expression* get_access(const yy::location& loc, const std::string& name);
     void add_action(INode* node);
@@ -155,6 +153,19 @@ public:
     void dump() const override;
 
     input_expression(yy::location loc) : expression(loc) {}
+};
+
+class assignment_expression final : public expression
+{
+private:
+    identificator_expression* lhs_;
+    expression* rhs_;
+public:
+    int calc() override;
+    void dump() const override;
+
+    assignment_expression(yy::location loc, identificator_expression* lhs, expression* rhs) : expression(loc),
+        lhs_(lhs), rhs_(rhs) {}
 };
 
 class binary_op_expression final : public expression
