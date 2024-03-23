@@ -45,15 +45,26 @@ struct INode
     virtual ~INode() {}
 };
 
-class statement : public INode
+class node_with_location : public INode
 {
 protected:
     yy::location location_;
 public:
-    statement(yy::location loc) : location_(loc) {}
+    node_with_location(yy::location loc) : location_(loc) {}
 };
 
-class expression;
+class statement : public node_with_location
+{
+public:
+    statement(yy::location loc) : node_with_location(loc) {}
+};
+
+class expression : public node_with_location
+{
+public:
+    expression(yy::location loc) : node_with_location(loc) {}
+    yy::location get_location() const;
+};
 
 class output_statement final: public statement
 {
@@ -64,15 +75,6 @@ public:
     void dump() const override;
 
     output_statement(yy::location loc, expression* expr) : statement(loc), expression_(expr) {}
-};
-
-class expression : public INode
-{
-protected:
-    yy::location location_;
-public:
-    expression(yy::location loc) : location_(loc) {}
-    yy::location get_location() const;
 };
 
 class identificator_expression final : public expression

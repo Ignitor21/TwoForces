@@ -173,13 +173,13 @@ expr:
 
 term:
   NUMBER         { $$ = abs_syntax_tree.create_node(number_expression(@1, $1));                                        }
-| ID             { $$ = abs_syntax_tree.get_access(@1, $1);                                                            }
+| ID             { $$ = abs_syntax_tree.current_scope_->get_access(@1, $1);                                            }
 | "?"            { $$ = abs_syntax_tree.create_node(input_expression(@1));                                             }
 | "(" expr ")"   { $$ = $2;                                                                                            }
 
 %%
 
-void yy::parser::error (const location_type& l, const std::string& m)
+void yy::parser::error(const location_type& l, const std::string& m)
 {
   std::cerr << l << ": " << m << '\n';
 }
