@@ -1,5 +1,6 @@
-#include "parser.hxx"
+#include <string_view>
 
+#include "parser.hxx"
 
 namespace frontend
 {
@@ -39,7 +40,7 @@ void scope::dump() const
     return;
 }
 
-identificator_expression* scope::get(const std::string& name) const
+identificator_expression* scope::get(const std::string_view& name) const
 {
     auto it = symtab_.find(name);
 
@@ -50,21 +51,21 @@ identificator_expression* scope::get(const std::string& name) const
 
 }
 
-void scope::add_id(const std::string& name, identificator_expression* node)
+void scope::add_id(const std::string_view& name, identificator_expression* node)
 {
     symtab_[name] = node;
 }
 
-void scope::set_value(const std::string& name, int value)
+void scope::set_value(const std::string_view& name, int value)
 {
     symtab_[name]->set_value(value);
     return;
 }
 
-identificator_expression* scope::get_variable(const yy::location& loc, const std::string& name)
+identificator_expression* scope::get_variable(const yy::location& loc, const std::string_view& name)
 {
     if (!symtab_.contains(name))
-        throw yy::parser::syntax_error(loc, name + " is undeclared!");
+        throw yy::parser::syntax_error(loc, std::string{name} + " is undeclared!");
     return symtab_[name];
 }
 
@@ -160,7 +161,7 @@ void identificator_expression::dump() const
     return;
 }
 
-const std::string& identificator_expression::get_name() const
+std::string_view identificator_expression::get_name() const
 {
     return name_;
 }

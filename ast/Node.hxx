@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 #include <vector>
 #include <unordered_map>
 
@@ -87,7 +88,7 @@ public:
     void dump() const override;
 
     identificator_expression(yy::location loc, const std::string& name, int val = 0) : expression(loc), name_(name), value_(val) {}
-    const std::string& get_name() const;
+    std::string_view get_name() const;
     void set_value(int val) noexcept;
 };
 
@@ -95,7 +96,7 @@ class scope final : public INode
 {
 private:
     std::vector<INode*> actions_;
-    std::unordered_map<std::string, identificator_expression*> symtab_;
+    std::unordered_map<std::string_view, identificator_expression*> symtab_;
     scope *prev_;
 public:
     int calc() override;
@@ -104,10 +105,10 @@ public:
     scope() = default;
     scope(scope* other) : actions_{}, symtab_{other->symtab_}, prev_{other} {}
     
-    void add_id(const std::string& name, identificator_expression* node);
-    identificator_expression* get(const std::string& name) const;
-    void set_value(const std::string& name, int value); 
-    identificator_expression* get_variable(const yy::location& loc, const std::string& name);
+    void add_id(const std::string_view& name, identificator_expression* node);
+    identificator_expression* get(const std::string_view& name) const;
+    void set_value(const std::string_view& name, int value); 
+    identificator_expression* get_variable(const yy::location& loc, const std::string_view& name);
     void add_action(INode* node);
     scope* reset_scope();
 };
