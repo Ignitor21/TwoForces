@@ -107,7 +107,7 @@ public:
     void add_id(const std::string& name, identificator_expression* node);
     identificator_expression* get(const std::string& name) const;
     void set_value(const std::string& name, int value); 
-    identificator_expression* get_access(const yy::location& loc, const std::string& name);
+    identificator_expression* get_variable(const yy::location& loc, const std::string& name);
     void add_action(INode* node);
     scope* reset_scope();
 };

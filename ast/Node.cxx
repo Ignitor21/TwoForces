@@ -61,7 +61,7 @@ void scope::set_value(const std::string& name, int value)
     return;
 }
 
-identificator_expression* scope::get_access(const yy::location& loc, const std::string& name)
+identificator_expression* scope::get_variable(const yy::location& loc, const std::string& name)
 {
     if (!symtab_.contains(name))
         throw yy::parser::syntax_error(loc, name + " is undeclared!");

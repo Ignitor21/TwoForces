@@ -27,10 +27,7 @@ public:
     template <typename T>
     T* create_node(T&& node)
     {
-        auto ptr = std::make_unique<T>(std::forward<T>(node));
-        T* ret = ptr.get();
-        nodes_.emplace_back(std::move(ptr));
-        return ret;
+        return static_cast<T*>(nodes_.emplace_back(std::make_unique<T>(std::forward<T>(node))).get());
     }
     
     void add_action(INode* node)
