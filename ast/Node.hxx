@@ -105,10 +105,10 @@ public:
     scope() = default;
     scope(scope* other) : actions_{}, symtab_{other->symtab_}, prev_{other} {}
     
-    void add_id(const std::string_view& name, identificator_expression* node);
-    identificator_expression* get(const std::string_view& name) const;
-    void set_value(const std::string_view& name, int value); 
-    identificator_expression* get_variable(const yy::location& loc, const std::string_view& name);
+    void add_id(std::string_view name, identificator_expression* node);
+    identificator_expression* get(std::string_view name) const;
+    void set_value(std::string_view name, int value); 
+    identificator_expression* get_variable(const yy::location& loc, std::string_view name);
     void add_action(INode* node);
     scope* reset_scope();
 };

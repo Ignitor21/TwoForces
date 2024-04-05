@@ -40,7 +40,7 @@ void scope::dump() const
     return;
 }
 
-identificator_expression* scope::get(const std::string_view& name) const
+identificator_expression* scope::get(std::string_view name) const
 {
     auto it = symtab_.find(name);
 
@@ -51,18 +51,19 @@ identificator_expression* scope::get(const std::string_view& name) const
 
 }
 
-void scope::add_id(const std::string_view& name, identificator_expression* node)
+void scope::add_id(std::string_view name, identificator_expression* node)
 {
     symtab_[name] = node;
 }
 
-void scope::set_value(const std::string_view& name, int value)
+void scope::set_value(std::string_view name, int value)
 {
+    std::cout << "Set value " << value << "for variable " << name << "\n";
     symtab_[name]->set_value(value);
     return;
 }
 
-identificator_expression* scope::get_variable(const yy::location& loc, const std::string_view& name)
+identificator_expression* scope::get_variable(const yy::location& loc, std::string_view name)
 {
     if (!symtab_.contains(name))
         throw yy::parser::syntax_error(loc, std::string{name} + " is undeclared!");
