@@ -107,11 +107,11 @@ stmt:
 ;
 
 assignment:
-  lval "=" expr { $$ = abs_syntax_tree.create_node(@2, $1, $3); }
+  lval "=" expr { $$ = abs_syntax_tree.create_node(@2, $1, $3); /* special overload for assignment */ }
 ;
 
 lval:
-  ID            { $$ = abs_syntax_tree.create_node(@1, $1); } 
+  ID            { $$ = abs_syntax_tree.create_node(@1, $1);  /* special overload for identificator */ } 
 ;
 
 output:

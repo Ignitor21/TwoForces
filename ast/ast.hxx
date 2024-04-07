@@ -34,7 +34,7 @@ public:
  
     identificator_expression* create_node(yy::location loc, std::string_view str)
     {
-         auto ret = current_scope_->get(str);
+        auto ret = current_scope_->get(str);
 
         if (ret)
             return ret;

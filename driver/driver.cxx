@@ -36,10 +36,10 @@ int yy::driver::parse(const std::string& f)
 
 void yy::driver::set_scan_debug_level(bool level) noexcept
 {
-    trace_scanning_ = true;
+    trace_scanning_ = level;
 }
 
 void yy::driver::set_parse_debug_level(bool level) noexcept
 {
-    trace_parsing_ = true;
+    trace_parsing_ = level;
 }
