@@ -137,6 +137,12 @@ void input_expression::dump() const
     return;
 }
 
+assignment_expression::assignment_expression(yy::location loc, identificator_expression* lhs, expression* rhs, scope* cur_scope)
+    : expression(loc), lhs_(lhs), rhs_(rhs)
+{
+    cur_scope->add_id(lhs->get_name(), lhs);
+}
+
 int assignment_expression::calc()
 {
     int ret = rhs_->calc();

@@ -7,10 +7,6 @@
 
 #include "location.hh"
 
-/* TO-DO:
-- add template specialisation for binary operations
-*/
-
 namespace frontend
 {
 
@@ -167,8 +163,7 @@ public:
     int calc() override;
     void dump() const override;
 
-    assignment_expression(yy::location loc, identificator_expression* lhs, expression* rhs) : expression(loc),
-        lhs_(lhs), rhs_(rhs) {}
+    assignment_expression(yy::location loc, identificator_expression* lhs, expression* rhs, scope* cur_scope);
 };
 
 class binary_op_expression final : public expression

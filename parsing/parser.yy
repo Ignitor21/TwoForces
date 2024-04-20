@@ -107,11 +107,16 @@ stmt:
 ;
 
 assignment:
-  lval "=" expr { $$ = abs_syntax_tree.create_node(@2, $1, $3); /* special overload for assignment */ }
+  lval "=" expr { $$ = abs_syntax_tree.create_node<assignment_expression>(@2, $1, $3, abs_syntax_tree.current_scope_); }
 ;
 
 lval:
-  ID            { $$ = abs_syntax_tree.create_node(@1, $1);  /* special overload for identificator */ } 
+  ID            { identificator_expression* ret = abs_syntax_tree.current_scope_->get($1);
+
+                  if (ret)
+                      $$ =  ret;
+                  else
+                      $$ = abs_syntax_tree.create_node<identificator_expression>(@1, $1); } 
 ;
 
 output:
@@ -121,7 +126,6 @@ output:
 fork:
   "if" "(" expr ")" body             { $$ = abs_syntax_tree.create_node<if_statement>(@1, $3, $5);     }
 | "if" "(" expr ")" body "else" body { $$ = abs_syntax_tree.create_node<if_statement>(@1, $3, $5, $7); }
-;
 
 loop:
   "while" "(" expr ")" body { $$ = abs_syntax_tree.create_node<while_statement>(@1, $3, $5); }
